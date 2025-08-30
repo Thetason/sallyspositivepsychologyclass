@@ -1,0 +1,16 @@
+{
+  "name": "sally-retreat",
+  "version": "1.0.0",
+  "description": "Sally's Healing Retreat Website",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build required'",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@vercel/kv": "^1.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}

@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>당신의 찬란한 '나'를 위한 힐링 여정 | 양평 프리미엄 리트릿</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-green: #2a472f;
+            --secondary-green: #4a5d38;
+            --light-green: #ddd7c7;
+            --accent-gold: #78856e;
+            --warm-beige: #ddd7c7;
+            --soft-gray: #f5f3f0;
+            --dark-forest: #2a472f;
+            --sage-green: #78856e;
+            --soft-beige: #ddd7c7;
+            --olive-green: #4a5d38;
+        }
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background: linear-gradient(to bottom, #ffffff, #f0fdf4);
+        }
+        
+        h1, h2, h3, .serif-font {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            font-weight: 700;
+        }
+        
+        /* Premium gradient backgrounds */
+        .premium-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .nature-gradient {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+        }
+        
+        .warm-gradient {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        }
+        
+        .forest-gradient {
+            background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(74, 93, 56, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(74, 93, 56, 0.8);
+                transform: scale(1.05);
+            }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        /* Special offer animation */
+        @keyframes urgency-pulse {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+                box-shadow: 0 0 30px rgba(217, 119, 6, 0.3);
+            }
+            25% { transform: scale(1.1) rotate(-2deg); }
+            50% { 
+                transform: scale(1.15) rotate(2deg);
+                box-shadow: 0 0 50px rgba(217, 119, 6, 0.6);
+            }
+            75% { transform: scale(1.1) rotate(-1deg); }
+        }
+        
+        .urgency-pulse {
+            animation: urgency-pulse 3s ease-in-out infinite;
+        }
+        
+        /* Blinking animation for '나' text */
+        @keyframes blink {
+            0%, 100% { 
+                opacity: 1;
+                color: #4a5d38;
+                text-shadow: 0 0 10px rgba(74, 93, 56, 0.5);
+            }
+            50% { 
+                opacity: 0.3;
+                color: #78856e;
+                text-shadow: 0 0 20px rgba(120, 133, 110, 0.8);
+            }
+        }
+        
+        .blink-text {
+            animation: blink 1s ease-in-out infinite;
+            font-weight: 800;
+        }
+        
+        /* Natural earth-tone background */
+        .ghibli-bg {
+            position: relative;
+            background: linear-gradient(180deg, #ddd7c7 0%, #e8e3d3 30%, #c5bfb0 70%, #78856e 100%);
+            overflow: hidden;
+        }
+        
+        .ghibli-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(254, 243, 199, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(167, 243, 208, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        /* Decorative divider line */
+        .divider-line {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d1d5db, transparent);
+            margin: 0 auto;
+        }
+        
+        /* Premium button styles */
+        .premium-btn {
+            background: linear-gradient(135deg, #4a5d38 0%, #2a472f 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .premium-btn:hover:before {
+            left: 100%;
+        }
+        
+        .premium-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(74, 93, 56, 0.3);
+        }
+        
+        /* Card hover effects */
+        .hover-card {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        /* Image slider improvements */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            background-color: #f5f5f5;
+        }
+        
+        @media (max-width: 768px) {
+            .slider-container {
+                border-radius: 0.5rem;
+            }
+        }
+        
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .slider-slide {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+        
+        .slider-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            background-color: #f5f5f5;
+        }
+        
+        /* Mobile responsive for slider images */
+        @media (max-width: 768px) {
+            .slider-slide img {
+                height: 300px;
+                object-fit: contain;
+            }
+            
+            .day1-slider img,
+            .day2-slider img,
+            .day3-slider img {
+                height: 250px;
+                object-fit: contain;
+            }
+        }
+        
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-green);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .slider-button:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .slider-button.prev {
+            left: 20px;
+        }
+        
+        .slider-button.next {
+            right: 20px;
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10b981, #059669);
+            z-index: 100;
+            transition: width 0.3s;
+        }
+        
+        /* Loading animation */
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-green);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Page sections */
+        .page-section {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        /* Admin login modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Premium input styles */
+        .premium-input {
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+        
+        .premium-input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+            outline: none;
+        }
+        
+        /* Testimonial carousel */
+        .testimonial-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--primary-green);
+            opacity: 0.2;
+            font-family: serif;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    
+    <!-- Admin Button (숨김) -->
+    <button id="adminBtn" class="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-full text-sm opacity-0 hover:opacity-100 transition-opacity z-50">
+        <i class="fas fa-lock"></i> Admin
+    </button>
+
+    <!-- Main Landing Page -->
+    <div id="landingPage" class="page-section active">
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-12 ghibli-bg">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-5">
+                <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23065f46" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+            </div>
+            
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 sm:pt-0">
+                <div class="text-center max-w-4xl mx-auto">
+                    <!-- Badge -->
+                    <div data-aos="fade-down" data-aos-duration="1000">
+                        <span class="inline-block text-white px-8 py-4 rounded-full text-lg sm:text-xl font-bold shadow-2xl transform hover:scale-105 transition-transform duration-300" style="background: linear-gradient(135deg, #78856e 0%, #4a5d38 100%);">
+                            <i class="fas fa-star mr-2 animate-pulse"></i> 
+                            <span style="background: linear-gradient(to right, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 900;">50-60대</span> 
+                            선착순 
+                            <span style="background: linear-gradient(to right, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 900;">6분 한정</span> 
+                            모집
+                        </span>
+                    </div>
+                    
+                    <!-- Divider Line 1 -->
+                    <div class="my-20">
+                        <div class="divider-line"></div>
+                    </div>
+                    
+                    <!-- Main Title -->
+                    <h1 class="serif-font text-5xl sm:text-6xl lg:text-7xl font-black leading-tight" data-aos="fade-up" data-aos-duration="1000">
+                        <span class="relative inline-block">
+                            <span style="background: linear-gradient(135deg, #2a472f 0%, #4a5d38 50%, #78856e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.2em; text-shadow: 2px 2px 4px rgba(42, 71, 47, 0.1);">다가오는 9월,</span>
+                            <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-70"></span>
+                        </span><br>
+                        <span style="background: linear-gradient(135deg, #2a472f 0%, #4a5d38 50%, #78856e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">찬란한 '나'를 위한</span><br>
+                        <span style="background: linear-gradient(135deg, #2a472f 0%, #4a5d38 50%, #78856e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">2박 3일 힐링 여행</span>
+                    </h1>
+                    
+                    <!-- Date Selection -->
+                    <div class="mt-8 mb-6" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1000">
+                        <p class="text-lg font-semibold mb-4" style="color: #4a5d38;">일정을 선택해주세요</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                            <label class="cursor-pointer transform hover:scale-105 transition-transform">
+                                <input type="radio" name="retreat-date" value="5-7" class="sr-only peer">
+                                <div class="px-6 py-3 rounded-full border-2 border-gray-300 peer-checked:border-green-600 peer-checked:bg-green-50 transition-all">
+                                    <span class="font-medium" style="color: #2a472f;">9월 12일(금) - 14일(일)</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer transform hover:scale-105 transition-transform">
+                                <input type="radio" name="retreat-date" value="12-14" class="sr-only peer">
+                                <div class="px-6 py-3 rounded-full border-2 border-gray-300 peer-checked:border-green-600 peer-checked:bg-green-50 transition-all">
+                                    <span class="font-medium" style="color: #2a472f;">9월 19일(금) - 21일(일)</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Divider Line 2 -->
+                    <div class="my-20">
+                        <div class="divider-line"></div>
+                    </div>
+                    
+                    <!-- Subtitle -->
+                    <p class="text-xl sm:text-2xl leading-relaxed font-medium" style="color: #2a472f;" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                        <span class="font-semibold" style="color: #4a5d38;">누군가의 엄마로, 아빠로, 혹은 한 자리를 묵묵히 지켜온</span> 당신에게—<br>
+                        이제는 오롯이 <span class="blink-text">'나'</span>를 위한 시간이 필요하지 않을까요?
+                    </p>
+                    
+                    <!-- Hero Image -->
+                    <div class="my-12" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+                        <img src="hero-image.png" alt="힐링 리트릿 모습" class="rounded-2xl shadow-2xl w-full max-w-2xl mx-auto" style="border: 3px solid #ddd7c7;">
+                    </div>
+                    
+                    <!-- New Description Text -->
+                    <div class="max-w-3xl mx-auto my-12 text-center" data-aos="fade-up" data-aos-delay="350" data-aos-duration="1000">
+                        <p class="text-lg leading-relaxed mb-6" style="color: #2a472f;">
+                            바쁘게 달려온 나날들 속에서, 늘 뒷전이었던<br>
+                            '나'를 이제는 가장 먼저 생각할 시간입니다.<br>
+                            <br>
+                            새로운 도전들과 함께 온전히 '나'에게 집중하며,<br>
+                            삶에 작은 용기와 설렘을 더해줄 2박 3일을 경험해 보세요.
+                        </p>
+                        <p class="text-base leading-relaxed mb-6">
+                            <span style="color: #6b8e23;">마음을 돌보는 글쓰기 시간,</span><br>
+                            <span style="color: #78856e;">자연 속 몸을 깨우는 움직임과 호흡</span><br>
+                            <span class="text-sm" style="color: #9b9b7a;">
+                                (처음이신 분들도 편안히 함께하실 수 있어요)
+                            </span><br>
+                            <span style="color: #8b7355;">그리고 마음을 들여다보는 감정 수업까지.</span>
+                        </p>
+                        <p class="text-lg font-semibold" style="color: #4a5d38;">
+                            가슴 뛰는 새로운 도전과 깊은 연결을 경험할<br>
+                            50–60대 참가자 6분을 기다립니다.<br>
+                            이 작은 여정이 당신의 삶에 따뜻한 쉼표가 되길 바랍니다.
+                        </p>
+                    </div>
+                    
+                    <!-- Program Overview Section -->
+                    <div class="max-w-5xl mx-auto my-16" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
+                        <div class="text-center mb-12">
+                            <h2 class="serif-font text-3xl sm:text-4xl font-bold mb-6" style="color: #2a472f;">
+                                새로운 나를 만나는 시간
+                            </h2>
+                            <p class="text-lg mb-8" style="color: #78856e;">
+                                바쁘게 달려온 나날들 속에서, 늘 뒷전이었던 '나'를 이제는 가장 먼저 생각할 시간입니다
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 gap-8 mb-12">
+                            <!-- 마음을 돌보는 글쓰기 -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                                <div>
+                                    <div class="flex items-start space-x-4 mb-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background-color: rgba(74, 93, 56, 0.1);">
+                                                <i class="fas fa-pen" style="color: #4a5d38;"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-xl mb-3" style="color: #2a472f;">마음을 돌보는 글쓰기</h3>
+                                            <p class="text-base leading-relaxed" style="color: #78856e;">고요한 숲속에서 내면의 목소리에 귀 기울이며, 마음속 이야기를 글로 풀어냅니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=500&h=350&fit=crop" 
+                                         alt="자연 속에서 글쓰기" 
+                                         class="rounded-xl shadow-lg w-full h-64 object-cover"
+                                         style="border: 2px solid #ddd7c7;">
+                                </div>
+                            </div>
+                            
+                            <!-- 자연 속 움직임과 호흡 -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                                <div>
+                                    <div class="flex items-start space-x-4 mb-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background-color: rgba(120, 133, 110, 0.1);">
+                                                <i class="fas fa-spa" style="color: #78856e;"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-xl mb-3" style="color: #2a472f;">자연 속 움직임과 호흡</h3>
+                                            <p class="text-base leading-relaxed" style="color: #78856e;">처음이신 분들도 편안히 함께할 수 있는 부드러운 요가와 명상으로 몸과 마음을 깨웁니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&h=350&fit=crop" 
+                                         alt="숲속 산책로 걷기" 
+                                         class="rounded-xl shadow-lg w-full h-64 object-cover"
+                                         style="border: 2px solid #ddd7c7;">
+                                </div>
+                            </div>
+                            
+                            <!-- 감정을 들여다보는 수업 -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                                <div>
+                                    <div class="flex items-start space-x-4 mb-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background-color: rgba(217, 119, 6, 0.1);">
+                                                <i class="fas fa-comments" style="color: #d97706;"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-xl mb-3" style="color: #2a472f;">감정을 들여다보는 수업</h3>
+                                            <p class="text-base leading-relaxed" style="color: #78856e;">전문 감정 코치와 함께 내 안의 감정을 이해하고, 건강하게 표현하는 방법을 배웁니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=350&fit=crop" 
+                                         alt="감정 코칭 및 대화" 
+                                         class="rounded-xl shadow-lg w-full h-64 object-cover"
+                                         style="border: 2px solid #ddd7c7;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Features -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
+                        <div class="backdrop-blur-sm rounded-xl p-4 shadow-lg hover-card" style="background-color: rgba(221, 215, 199, 0.8);">
+                            <i class="fas fa-leaf text-3xl mb-2" style="color: #4a5d38; background: linear-gradient(135deg, #4a5d38, #78856e); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                            <h3 class="font-semibold" style="color: #2a472f;">자연 속 힐링</h3>
+                            <p class="text-sm" style="color: #78856e;">양평의 고요한 자연에서</p>
+                        </div>
+                        <div class="backdrop-blur-sm rounded-xl p-4 shadow-lg hover-card" style="background-color: rgba(221, 215, 199, 0.8);">
+                            <i class="fas fa-heart text-3xl mb-2" style="color: #d97706; text-shadow: 0 0 10px rgba(217, 119, 6, 0.3);"></i>
+                            <h3 class="font-semibold" style="color: #2a472f;">감정 코칭</h3>
+                            <p class="text-sm" style="color: #78856e;">전문가와 함께하는 1:1 코칭</p>
+                        </div>
+                        <div class="backdrop-blur-sm rounded-xl p-4 shadow-lg hover-card" style="background-color: rgba(221, 215, 199, 0.8);">
+                            <i class="fas fa-users text-3xl mb-2" style="color: #2a472f; text-shadow: 0 0 10px rgba(42, 71, 47, 0.3);"></i>
+                            <h3 class="font-semibold" style="color: #2a472f;">소규모 프로그램</h3>
+                            <p class="text-sm" style="color: #78856e;">단 6명의 특별한 만남</p>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Button -->
+                    <button onclick="showApplicationForm()" class="premium-btn text-white font-bold py-5 px-12 rounded-full text-xl shadow-2xl pulse-glow transform hover:scale-110 transition-all duration-300" data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1000">
+                        지금 바로 신청하기 <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    
+                    <!-- Scroll Down Indicator -->
+                    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 floating">
+                        <i class="fas fa-chevron-down text-2xl text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Target Audience -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-emerald-50">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="serif-font text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+                        이런 분들과 함께하고 싶습니다
+                    </h2>
+                </div>
+                
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover-card">
+                        <div class="flex items-start space-x-4">
+                            <span class="text-3xl">🍃</span>
+                            <div>
+                                <h3 class="font-bold text-xl mb-3" style="background: linear-gradient(135deg, #2a472f, #4a5d38); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(74, 93, 56, 0.3);">나를 찾고 싶은 분</h3>
+                                <p class="text-gray-600">누군가의 엄마, 아빠, 직장인이기 전에 '나'로 숨 쉬는 시간이 필요하신 분</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover-card">
+                        <div class="flex items-start space-x-4">
+                            <span class="text-3xl">🏠</span>
+                            <div>
+                                <h3 class="font-bold text-xl mb-3" style="background: linear-gradient(135deg, #4a5d38, #78856e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(120, 133, 110, 0.3);">일상/직장생활에서 잠시 벗어나고 싶은 분</h3>
+                                <p class="text-gray-600">매일 반복되는 일상에 지쳐 나만의 공간이 필요하신 분</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover-card">
+                        <div class="flex items-start space-x-4">
+                            <span class="text-3xl">❤️</span>
+                            <div>
+                                <h3 class="font-bold text-xl mb-3" style="color: #d97706; text-shadow: 0 2px 10px rgba(217, 119, 6, 0.4); filter: drop-shadow(0 0 5px rgba(217, 119, 6, 0.3));">감정을 돌보고 싶은 분</h3>
+                                <p class="text-gray-600">요가나 글쓰기 같은 수업은 해봤지만, 여전히 감정이 꽉 막힌 느낌이 드는 분</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-lg hover-card">
+                        <div class="flex items-start space-x-4">
+                            <span class="text-3xl">🌳</span>
+                            <div>
+                                <h3 class="font-bold text-xl mb-3" style="background: linear-gradient(135deg, #78856e, #2a472f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(42, 71, 47, 0.3);">자연과 함께하고 싶은 분</h3>
+                                <p class="text-gray-600">자연을 가까이 두고, 마음에 숨을 불어넣고 싶은 분</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule -->
+        <section id="schedule" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="serif-font text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+                        힐링 여정 스케줄
+                    </h2>
+                    <p class="text-lg text-gray-600">2박 3일간의 특별한 프로그램</p>
+                </div>
+                
+                <!-- Schedule Timeline -->
+                <div class="space-y-8">
+                    <!-- Day 1 -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up">
+                        <div class="text-white p-6" style="background: linear-gradient(135deg, #2a472f 0%, #4a5d38 100%);">
+                            <h3 class="text-2xl font-bold flex items-center">
+                                <span class="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mr-3">1</span>
+                                Day 1 — "나를 깨우는 시간"
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+                            <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🚐 11:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">픽업</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🍽️ 13:00-14:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">점심</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🌿 15:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">체크인 & 환영 티 세레모니</h4>
+                                    <p class="text-sm" style="color: #78856e;">프리미엄 허브티 & 지역 특산 디저트 제공</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">📝 16:00-18:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">감정 인사이트 클래스 1 + 오리엔테이션</h4>
+                                    <p class="text-sm leading-relaxed" style="color: #78856e;">마음 체크리스트를 통해 지금 내 안에 머물고 있는 감정들을 들여다봅니다.<br>
+                                    그 감정이 어디에서 비롯된 것인지 가만히 마주하며, 앞으로 3일 동안 내 마음이 원하는 감정은 무엇인지, 그 감정에 가까워지기 위한 작고 현실적인 실천을 찾아봅니다.<br>
+                                    이 수업은 이후 1:1 코칭에서 다룰 마음의 방향성을 열어주는 시간입니다.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🥂 18:00-19:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">프리미엄 웰컴 디너</h4>
+                                    <p class="text-sm" style="color: #78856e;">오리고기 로스구이, 더덕 주물럭, 훈제구이<br>와인/맥주 페어링</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🚶‍♀️ 19:30-20:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">자연 산책</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🧘‍♀️ 20:00-20:30</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">슬로우 요가 & 아로마 호흡법</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">✍️ 20:30-21:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">저널링 — 오늘의 통찰 기록, 촛불 명상</h4>
+                                    <p class="text-sm leading-relaxed" style="color: #78856e;">고요한 숲속에서 마음에 떠오르는 생각과 감정을 자유롭게 글로 표현하는 시간입니다.<br>
+                                    정해진 형식 없이, 자연이 주는 영감 속에서 오롯이 나에게 집중하며 내면의 목소리를 듣습니다.</p>
+                                </div>
+                            </div>
+                            </div>
+                            <!-- Day 1 Photo Gallery -->
+                            <div class="relative">
+                                <div class="day1-slider slider-container">
+                                    <div class="slider-wrapper">
+                                        <div class="slider-slide">
+                                            <img src="day1-1.png?v=3" 
+                                                 alt="Day 1 힐링 리트릿 활동 - 나를 깨우는 시간" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day1-2.png?v=3" 
+                                                 alt="Day 1 힐링 리트릿 활동 - 나를 깨우는 시간" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day1-3.png?v=3" 
+                                                 alt="Day 1 힐링 리트릿 활동 - 나를 깨우는 시간" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day1-4.png?v=3" 
+                                                 alt="Day 1 힐링 리트릿 활동 - 나를 깨우는 시간" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day1-5.png?v=3" 
+                                                 alt="Day 1 힐링 리트릿 활동 - 나를 깨우는 시간" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Slider Controls -->
+                                <button onclick="moveDay1Slide(-1)" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-all">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                <button onclick="moveDay1Slide(1)" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-all">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                                <!-- Dots Indicator -->
+                                <div class="flex justify-center space-x-2 mt-4">
+                                    <span class="day1-dot w-2 h-2 bg-gray-800 rounded-full"></span>
+                                    <span class="day1-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day1-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day1-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day1-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 2 -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                        <div class="text-white p-6" style="background: linear-gradient(135deg, #4a5d38 0%, #78856e 100%);">
+                            <h3 class="text-2xl font-bold flex items-center">
+                                <span class="rounded-full w-10 h-10 flex items-center justify-center mr-3" style="background-color: rgba(221, 215, 199, 0.3);">2</span>
+                                Day 2 — "깊이 들어가는 날"
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+                            <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🌳 07:30</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">왕방계곡 걷기 명상</h4>
+                                    <p class="text-sm" style="color: #78856e;">물소리, 바람, 새소리 집중</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🍽️ 08:00-08:30</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">건강 브런치 (아유르베다식)</h4>
+                                    <p class="text-sm" style="color: #78856e;">다양한 빵, 토스트, 계란, 과일, 커피 제공</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">💬 09:00-11:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">감정 액티비티 1: 마음 글쓰기 + 1:1 개인 코칭 (샐리)</h4>
+                                    <p class="text-sm leading-relaxed" style="color: #78856e;">오늘 내가 가진 감정을 샐리와 함께 들여다보는 방법을 배우고, 심리 이론 기반으로 이해합니다.<br>
+                                    오늘 내 마음이 원하는 감정과, 그 감정에 가까워지기 위한 작고 현실적인 실천을 찾아봅니다.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🌸 11:00-12:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">올바른 호흡법 + 아로마 힐링 세션</h4>
+                                    <p class="text-sm leading-relaxed" style="color: #78856e;">올바른 호흡법을 배우고, 피톤치드에 어울리는 아로마 힐링과 싱잉볼 세션으로 마음과 감정의 긴장을 풀어봅니다.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🍽️ 12:00-13:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">점심 (선택)</h4>
+                                    <p class="text-sm" style="color: #78856e;">태국식: 월남쌈, 쌀국수, 팟타이<br>한식: 비빔밥, 장칼제비, 바지락 칼국수</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🎨 13:30-15:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">한 장의 숲 아트 테라피</h4>
+                                    <p class="text-sm" style="color: #78856e;">큰 캔버스에 아크릴, 마커와 자연 속 재료들을 활용하여 우리만의 '한 장의 숲' 작품을 완성하고, 추억으로 남깁니다.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🧘‍♀️ 15:00-17:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">감정 인사이트 클래스 2: 나의 패턴 끊기 & 감정 다루기</h4>
+                                    <p class="text-sm leading-relaxed" style="color: #78856e;">통제할 수 없는 감정을 억누르기보다 부드럽게 마주하는 방법을 배웁니다.<br>
+                                    나를 지치게 했던 감정의 뿌리를 살펴보고, 그 감정을 나답게 풀어내는 방법을 연습합니다.<br>
+                                    구성: 30분 수업 + 30분 자기 탐색 + 30분 공유 시간</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🍖 17:30-19:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">디너 (바베큐: 삼겹살 + 스시)</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🌅 19:30-20:30</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">해넘이 감상</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🔥 20:30-21:30</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">모닥불 요가 & 명상</h4>
+                                </div>
+                            </div>
+                            </div>
+                            <!-- Day 2 Photo Gallery -->
+                            <div class="relative">
+                                <div class="day2-slider slider-container">
+                                    <div class="slider-wrapper">
+                                        <div class="slider-slide">
+                                            <img src="day2-1.png?v=20240822c" 
+                                                 alt="Day 2 힐링 리트릿 활동 - 깊이 들어가는 날" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day2-2.png?v=20240822c" 
+                                                 alt="Day 2 힐링 리트릿 활동 - 깊이 들어가는 날" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day2-3.png?v=20240822c" 
+                                                 alt="Day 2 힐링 리트릿 활동 - 깊이 들어가는 날" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day2-4.png?v=20240822c" 
+                                                 alt="Day 2 힐링 리트릿 활동 - 깊이 들어가는 날" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day2-5.png?v=20240822c" 
+                                                 alt="Day 2 힐링 리트릿 활동 - 깊이 들어가는 날" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day2-6.png?v=20240822c" 
+                                                 alt="Day 2 힐링 리트릿 활동 - 깊이 들어가는 날" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Slider Controls -->
+                                <button onclick="moveDay2Slide(-1)" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-all">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                <button onclick="moveDay2Slide(1)" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-all">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                                <!-- Dots Indicator -->
+                                <div class="flex justify-center space-x-2 mt-4">
+                                    <span class="day2-dot w-2 h-2 bg-gray-800 rounded-full"></span>
+                                    <span class="day2-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day2-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day2-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day2-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day2-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 3 -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-white p-6" style="background: linear-gradient(135deg, #78856e 0%, #ddd7c7 100%);">
+                            <h3 class="text-2xl font-bold flex items-center" style="color: #2a472f;">
+                                <span class="rounded-full w-10 h-10 flex items-center justify-center mr-3" style="background-color: rgba(42, 71, 47, 0.2);">3</span>
+                                Day 3 — "변화의 설계"
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+                            <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">🌅 07:30-08:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">아침 스트레칭 & 감사 명상</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">☕ 08:30-09:30</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">브런치: 파인힐 커피하우스</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">📋 10:00-12:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">비전보드 수업 & 편지 쓰기 (미래의 나에게)</h4>
+                                    <p class="text-sm leading-relaxed" style="color: #78856e;"><strong>비전보드 수업:</strong> 내가 원하는 삶과 감정, 목표를 시각적으로 표현합니다. 잡지, 사진, 스티커 등 다양한 자료를 활용하여, '지금 내가 원하는 삶과 감정'을 한눈에 볼 수 있도록 설계합니다.<br><br>
+                                    <strong>편지 쓰기:</strong> '미래의 나'에게 보내는 편지를 작성하며, 3일간의 경험과 통찰을 기록하고, 스스로에게 용기와 응원을 전합니다.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">📸 12:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">'지금의 나' 촬영 — 흑백 콘셉트 사진</h4>
+                                    <p class="text-sm leading-relaxed" style="color: #78856e;">현재 내 감정과 내면을 담은 흑백 사진 촬영 세션입니다.<br>
+                                    자연광과 감정 컬러 콘셉트를 활용해 편안한 포즈로 촬영하며, 자신의 진짜 모습을 마주하고 기록합니다.<br>
+                                    사진은 추후 리플렉션 자료 또는 개인 앨범으로 활용 가능하며, 변화 전 나와 미래의 나를 연결하는 시각적 기록이 됩니다.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-lg font-semibold w-32 flex-shrink-0" style="color: #4a5d38;">👜 12:00</span>
+                                <div>
+                                    <h4 class="font-semibold mb-2" style="color: #2a472f;">체크아웃 & 자유시간</h4>
+                                </div>
+                            </div>
+                            </div>
+                            <!-- Day 3 Photo Gallery -->
+                            <div class="relative">
+                                <div class="day3-slider slider-container">
+                                    <div class="slider-wrapper">
+                                        <div class="slider-slide">
+                                            <img src="day3-1.png?v=20240822c" 
+                                                 alt="Day 3 힐링 리트릿 활동 - 변화의 설계" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day3-2.png?v=20240822c" 
+                                                 alt="Day 3 힐링 리트릿 활동 - 변화의 설계" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day3-3.png?v=20240822c" 
+                                                 alt="Day 3 힐링 리트릿 활동 - 변화의 설계" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day3-4.png?v=20240822c" 
+                                                 alt="Day 3 힐링 리트릿 활동 - 변화의 설계" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                        <div class="slider-slide">
+                                            <img src="day3-5.png?v=20240822c" 
+                                                 alt="Day 3 힐링 리트릿 활동 - 변화의 설계" 
+                                                 class="rounded-xl shadow-lg w-full">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Slider Controls -->
+                                <button onclick="moveDay3Slide(-1)" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-all">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                <button onclick="moveDay3Slide(1)" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-all">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                                <!-- Dots Indicator -->
+                                <div class="flex justify-center space-x-2 mt-4">
+                                    <span class="day3-dot w-2 h-2 bg-gray-800 rounded-full"></span>
+                                    <span class="day3-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day3-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day3-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                    <span class="day3-dot w-2 h-2 bg-gray-300 rounded-full"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Space Gallery -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-green-50">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="serif-font text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+                        함께하는 공간
+                    </h2>
+                    <p class="text-lg text-gray-600">경기도 양평의 프라이빗 리트릿 하우스</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div data-aos="fade-right">
+                        <div id="imageSlider" class="slider-container">
+                            <div class="slider-wrapper">
+                                <div class="slider-slide">
+                                    <img src="space-new-1.png" 
+                                         alt="리트릿 하우스 다이닝 주방 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-2.png" 
+                                         alt="리트릿 하우스 대형 다이닝 주방">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-3.png" 
+                                         alt="리트릿 하우스 침실 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-4.png" 
+                                         alt="리트릿 하우스 거실 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-5.png" 
+                                         alt="리트릿 하우스 주방 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-6.png" 
+                                         alt="리트릿 하우스 다이닝 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-7.png" 
+                                         alt="리트릿 하우스 거실 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-8.png" 
+                                         alt="리트릿 하우스 침실 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-9.png" 
+                                         alt="리트릿 하우스 욕실 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-10.png" 
+                                         alt="리트릿 하우스 테라스 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-11.png" 
+                                         alt="리트릿 하우스 주방 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-12.png" 
+                                         alt="리트릿 하우스 다이닝 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-13.png" 
+                                         alt="리트릿 하우스 거실 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-14.png" 
+                                         alt="리트릿 하우스 침실 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-15.png" 
+                                         alt="리트릿 하우스 욕실 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-16.png" 
+                                         alt="리트릿 하우스 테라스 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-17.png" 
+                                         alt="리트릿 하우스 주방 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-18.png" 
+                                         alt="리트릿 하우스 다이닝 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-19.png" 
+                                         alt="리트릿 하우스 거실 공간">
+                                </div>
+                                <div class="slider-slide">
+                                    <img src="space-new-20.png" 
+                                         alt="리트릿 하우스 전체 공간">
+                                </div>
+                            </div>
+                            <button class="slider-button prev" onclick="moveSlide(-1)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="slider-button next" onclick="moveSlide(1)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div data-aos="fade-left">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">참가비 ₩980,000 포함 프리미엄 혜택</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3" style="color: #4a5d38;"></i>
+                                <span>경기도 양평 프라이빗 독채 펜션 숙박</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3" style="color: #4a5d38;"></i>
+                                <span>대형 다이닝 주방 & 세련된 거실 공간</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3" style="color: #4a5d38;"></i>
+                                <span>요가 가능한 마당 & 자연 속 힐링 공간</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3" style="color: #4a5d38;"></i>
+                                <span>균형 잡힌 프리미엄 식사 제공</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3" style="color: #4a5d38;"></i>
+                                <span>감정 수업 & 요가 클래스</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3" style="color: #4a5d38;"></i>
+                                <span>프로필용 독사진 촬영 포함</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3" style="color: #4a5d38;"></i>
+                                <span>리무진 픽업 서비스</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-6 p-4 rounded-xl shadow-lg" style="background-color: #ddd7c7;">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm" style="color: #78856e;">참가비</p>
+                                    <p class="text-3xl font-bold" style="color: #2a472f;">₩980,000</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm text-gray-600">포함사항</p>
+                                    <p class="text-sm font-semibold">숙박, 식사, 리무진, 수업, 전체 포함</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructor -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="serif-font text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+                        지도자 소개
+                    </h2>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8">
+                        <div class="text-center md:text-left">
+                            <img src="coach-nature.jpg" 
+                                 alt="Sally Kim - 자연 속 명상" 
+                                 class="w-48 h-48 rounded-full mx-auto shadow-lg object-cover object-top">
+                            <h3 class="text-2xl font-bold mt-4 text-gray-800">Sally Kim</h3>
+                            <p class="text-gray-600">김혜림</p>
+                        </div>
+                        
+                        <div class="md:col-span-2 space-y-4">
+                            <p class="text-gray-700 leading-relaxed">
+                                감정 코치이자 자기회복 여정의 가이드로서, 요가·명상·심리 기반 대화를 통해 '지금의 나'를 돌보는 시간을 안내합니다.
+                                삶의 전환기에 선 분들이 자신을 깊이 들여다보고, 더 나답게 살아갈 용기를 충전할 수 있도록 따뜻하고 안전한 공간을 만들어가고 있습니다.
+                            </p>
+                            
+                            <blockquote class="border-l-4 border-green-600 pl-4 italic text-gray-600">
+                                "저는 감정을 억누르거나 바꾸기보다, 있는 그대로 마주한 뒤 그 감정이 어디에서 비롯되었는지를 함께 들여다봅니다. 
+                                이번 여정이 당신에게 자신과 진심으로 연결되는 시간이 되기를 바랍니다."
+                            </blockquote>
+                            
+                            <div>
+                                <h4 class="font-semibold mb-2 text-gray-800">학력 및 자격</h4>
+                                <ul class="space-y-1 text-gray-600 text-sm">
+                                    <li>• 노팅엄대학교 심리학 및 인지신경과학 학사</li>
+                                    <li>• International Coach Academy 공인 전문코치(PPC) 과정 이수 중</li>
+                                    <li>• 영어 기반 심리 수업 진행 및 워크숍 퍼실리테이터</li>
+                                    <li>• 심리 뉴스레터 모락온 저자 (브런치, 메일리 연재)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coaching Section -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8" style="background: linear-gradient(135deg, #f5f3f0 0%, #ddd7c7 100%);">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="serif-font text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+                        샐리와의 1:1 코칭
+                    </h2>
+                    <p class="text-lg max-w-3xl mx-auto leading-relaxed" style="color: #2a472f;">
+                        누군가가 나를 있는 그대로 바라봐 주고,<br>
+                        말 한마디 한마디에 진심으로 귀 기울여 주는 시간.<br><br>
+                        
+                        <span style="color: #78856e;">
+                        샐리와의 1:1 대화 속에서<br>
+                        마음 깊은 곳의 소리를 만나고,<br>
+                        내 삶에서 가장 소중한 것이 무엇인지 알아갑니다.<br>
+                        그리고 그것을 어떻게 지켜나갈지,<br>
+                        마음 안에서 천천히 살펴봅니다.
+                        </span>
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4" data-aos="fade-right">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">이런 분들께 특히 도움이 됩니다</h3>
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <h4 class="font-semibold mb-2" style="color: #4a5d38;">늘 타인을 먼저 챙겨온 분들</h4>
+                            <p class="text-gray-600">이제는 나 자신을 위한 시간을 갖고 싶은 분에게, "나는 정말 무엇을 원하는가?"를 차분히 마주할 수 있는 공간을 드립니다.</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <h4 class="font-semibold mb-2" style="color: #4a5d38;">감정이 멀어진 것 같은 분들</h4>
+                            <p class="text-gray-600">말로 꺼내지 못했던 감정들을 천천히 풀어가며, 내 안에 잠들어 있던 마음의 목소리를 함께 들어봅니다.</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <h4 class="font-semibold mb-2" style="color: #4a5d38;">새로운 시작을 앞둔 분들</h4>
+                            <p class="text-gray-600">지금까지 걸어온 삶의 흐름을 판단 없이 돌아보고, 앞으로 나아가고 싶은 방향을 그려갈 수 있도록 도와드립니다.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4" data-aos="fade-left">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">샐리의 코칭은 이렇게 다릅니다</h3>
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-heart text-pink-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold mb-1">정답이나 조언을 주지 않습니다</h4>
+                                    <p class="text-gray-600 text-sm">당신만의 방식과 감각을 존중하며, 당신 안에 이미 있는 답을 함께 발견해갑니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-clock text-blue-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold mb-1">당신의 속도를 소중히 여깁니다</h4>
+                                    <p class="text-gray-600 text-sm">마음이 열릴 때까지 기다리고, 지금 가장 하고 싶은 이야기부터 천천히 시작합니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-star text-yellow-500 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold mb-1">고치려는 게 아닙니다</h4>
+                                    <p class="text-gray-600 text-sm">지금의 나를 진심으로 이해하는 것. 그 순간, 내가 진짜 원하는 방향이 선명해지기 시작합니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="serif-font text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+                        자주 묻는 질문
+                    </h2>
+                </div>
+                
+                <div class="space-y-4" data-aos="fade-up">
+                    <div class="bg-white rounded-xl p-6 shadow-lg">
+                        <button class="w-full text-left flex items-center justify-between" onclick="toggleFAQ(1)">
+                            <h3 class="font-semibold text-lg">움직임, 명상, 글쓰기... 다 처음인데 괜찮을까요?</h3>
+                            <i class="fas fa-chevron-up transition-transform rotate-180" id="faq-icon-1"></i>
+                        </button>
+                        <div class="mt-4 text-gray-600" id="faq-content-1">
+                            물론 괜찮습니다! 처음이신 분들을 위한 프로그램이에요. 실력이 중요한 게 아니라, 새로운 경험에 마음을 열어보는 것이 더 중요하니까요.
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-lg">
+                        <button class="w-full text-left flex items-center justify-between" onclick="toggleFAQ(2)">
+                            <h3 class="font-semibold text-lg">혼자 가도 되나요?</h3>
+                            <i class="fas fa-chevron-up transition-transform rotate-180" id="faq-icon-2"></i>
+                        </button>
+                        <div class="mt-4 text-gray-600" id="faq-content-2">
+                            대부분 혼자 오십니다. 오히려 혼자 오시는 분들이 더 자연스럽게 서로에게 마음을 열고, 깊이 있는 시간을 보내시곤 해요. 걱정하지 않으셔도 돼요.
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-lg">
+                        <button class="w-full text-left flex items-center justify-between" onclick="toggleFAQ(3)">
+                            <h3 class="font-semibold text-lg">꼭 50~60대만 신청할 수 있나요?</h3>
+                            <i class="fas fa-chevron-up transition-transform rotate-180" id="faq-icon-3"></i>
+                        </button>
+                        <div class="mt-4 text-gray-600" id="faq-content-3">
+                            네, 이번 리트릿은 50~60대 분들을 위한 프로그램입니다. 비슷한 삶의 시기를 보내고 계신 분들이 함께하실 때, 서로 더 깊이 공감하고 나눌 수 있다고 믿기 때문이에요.
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-lg">
+                        <button class="w-full text-left flex items-center justify-between" onclick="toggleFAQ(4)">
+                            <h3 class="font-semibold text-lg">친구나 배우자와 함께 가도 되나요?</h3>
+                            <i class="fas fa-chevron-up transition-transform rotate-180" id="faq-icon-4"></i>
+                        </button>
+                        <div class="mt-4 text-gray-600" id="faq-content-4">
+                            네, 함께 오셔도 괜찮습니다. 다만 이 2박 3일 동안은 '나'를 들여다보는 시간이라 최대 2명까지만 함께 신청하실 수 있도록 부탁드리고 있어요.
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Box in FAQ -->
+                    <div class="mt-8 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl p-6 text-center">
+                        <h3 class="font-bold text-lg mb-3 text-gray-800">
+                            <i class="fas fa-comments text-amber-600 mr-2"></i>궁금한 점이 더 있으신가요?
+                        </h3>
+                        <p class="text-gray-700 mb-3">편하게 연락주세요. 친절히 안내해드리겠습니다.</p>
+                        <a href="tel:010-3118-5870" class="inline-block text-white font-bold py-3 px-8 rounded-full transition hover:scale-105" style="background-color: #4a5d38;">
+                            <i class="fas fa-phone-alt mr-2"></i>010-3118-5870
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8" style="background: linear-gradient(135deg, #2a472f 0%, #4a5d38 100%);">
+            <div class="container mx-auto max-w-4xl text-center text-white" data-aos="zoom-in">
+                <h2 class="serif-font text-3xl sm:text-4xl font-bold mb-6">
+                    당신의 '나를 위한 시간'은 기다려주지 않습니다
+                </h2>
+                <p class="text-lg mb-8 opacity-90">
+                    6명 선착순 마감으로, 관심이 있다면 지금 바로 신청하세요.<br>
+                    모든 과정은 안전하고 편안한 분위기에서 진행됩니다.<br>
+                    <span class="text-yellow-200 font-semibold">문의: 010-3118-5870</span>
+                </p>
+                <button onclick="showApplicationForm()" class="font-bold py-5 px-12 rounded-full text-xl shadow-2xl transform hover:scale-110 transition-all duration-300 urgency-pulse" style="background-color: #ddd7c7; color: #2a472f;">
+                    지금 바로 신청하기 <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+        
+        <!-- Email Notification Section -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8" style="background: linear-gradient(135deg, #f5f3f0 0%, #e8e3d3 100%);">
+            <div class="container mx-auto max-w-3xl text-center">
+                <div class="bg-white rounded-2xl shadow-xl p-8" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-4" style="color: #2a472f;">
+                        9월에 참석이 어려우신가요?
+                    </h3>
+                    <p class="text-lg mb-6" style="color: #78856e;">
+                        다른 달 진행 소식을 받고 싶으시다면 이메일을 남겨주세요.
+                    </p>
+                    <form id="emailNotificationForm" class="max-w-md mx-auto">
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input type="email" 
+                                   placeholder="이메일 주소를 입력해주세요" 
+                                   required
+                                   class="flex-1 px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-green-600 focus:outline-none">
+                            <button type="submit" 
+                                    class="px-6 py-3 rounded-lg font-semibold text-white transition-all hover:scale-105"
+                                    style="background: linear-gradient(135deg, #4a5d38 0%, #2a472f 100%);">
+                                소식 받기
+                            </button>
+                        </div>
+                    </form>
+                    <p class="text-sm text-gray-600 mt-4">
+                        * 이메일은 리트릿 소식 안내 목적으로만 사용됩니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Application Form Page -->
+    <div id="applicationPage" class="page-section">
+        <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-emerald-50">
+            <div class="container mx-auto max-w-3xl">
+                <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                    <!-- Form Header -->
+                    <div class="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-8 text-center">
+                        <h1 class="serif-font text-3xl font-bold mb-2">힐링 여정 참가 신청</h1>
+                        <p class="opacity-90">'나'를 위한 소중한 시간을 위해 아래 정보를 입력해 주세요</p>
+                    </div>
+                    
+                    <!-- Form Body -->
+                    <form id="applicationForm" class="p-8 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    성함 <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="name" required 
+                                       class="w-full px-4 py-3 rounded-lg premium-input">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    생년월일 <span class="text-red-500">*</span>
+                                </label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <select name="birth_year" required class="px-3 py-3 rounded-lg premium-input text-center">
+                                        <option value="">년도</option>
+                                        <option value="1975">1975년</option>
+                                        <option value="1974">1974년</option>
+                                        <option value="1973">1973년</option>
+                                        <option value="1972">1972년</option>
+                                        <option value="1971">1971년</option>
+                                        <option value="1970" selected>1970년</option>
+                                        <option value="1969">1969년</option>
+                                        <option value="1968">1968년</option>
+                                        <option value="1967">1967년</option>
+                                        <option value="1966">1966년</option>
+                                        <option value="1965">1965년</option>
+                                        <option value="1964">1964년</option>
+                                        <option value="1963">1963년</option>
+                                        <option value="1962">1962년</option>
+                                        <option value="1961">1961년</option>
+                                        <option value="1960">1960년</option>
+                                        <option value="1959">1959년</option>
+                                        <option value="1958">1958년</option>
+                                        <option value="1957">1957년</option>
+                                        <option value="1956">1956년</option>
+                                        <option value="1955">1955년</option>
+                                        <option value="1954">1954년</option>
+                                        <option value="1953">1953년</option>
+                                        <option value="1952">1952년</option>
+                                        <option value="1951">1951년</option>
+                                        <option value="1950">1950년</option>
+                                    </select>
+                                    <select name="birth_month" required class="px-3 py-3 rounded-lg premium-input text-center">
+                                        <option value="">월</option>
+                                        <option value="01">1월</option>
+                                        <option value="02">2월</option>
+                                        <option value="03">3월</option>
+                                        <option value="04">4월</option>
+                                        <option value="05">5월</option>
+                                        <option value="06">6월</option>
+                                        <option value="07">7월</option>
+                                        <option value="08">8월</option>
+                                        <option value="09">9월</option>
+                                        <option value="10">10월</option>
+                                        <option value="11">11월</option>
+                                        <option value="12">12월</option>
+                                    </select>
+                                    <select name="birth_day" required class="px-3 py-3 rounded-lg premium-input text-center">
+                                        <option value="">일</option>
+                                        <option value="01">1일</option>
+                                        <option value="02">2일</option>
+                                        <option value="03">3일</option>
+                                        <option value="04">4일</option>
+                                        <option value="05">5일</option>
+                                        <option value="06">6일</option>
+                                        <option value="07">7일</option>
+                                        <option value="08">8일</option>
+                                        <option value="09">9일</option>
+                                        <option value="10">10일</option>
+                                        <option value="11">11일</option>
+                                        <option value="12">12일</option>
+                                        <option value="13">13일</option>
+                                        <option value="14">14일</option>
+                                        <option value="15">15일</option>
+                                        <option value="16">16일</option>
+                                        <option value="17">17일</option>
+                                        <option value="18">18일</option>
+                                        <option value="19">19일</option>
+                                        <option value="20">20일</option>
+                                        <option value="21">21일</option>
+                                        <option value="22">22일</option>
+                                        <option value="23">23일</option>
+                                        <option value="24">24일</option>
+                                        <option value="25">25일</option>
+                                        <option value="26">26일</option>
+                                        <option value="27">27일</option>
+                                        <option value="28">28일</option>
+                                        <option value="29">29일</option>
+                                        <option value="30">30일</option>
+                                        <option value="31">31일</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    연락처 <span class="text-red-500">*</span>
+                                </label>
+                                <input type="tel" name="phone" required 
+                                       placeholder="010-0000-0000"
+                                       class="w-full px-4 py-3 rounded-lg premium-input">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    이메일 <span class="text-red-500">*</span>
+                                </label>
+                                <input type="email" name="email" required 
+                                       placeholder="example@email.com"
+                                       class="w-full px-4 py-3 rounded-lg premium-input">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                참가 일정 선택 <span class="text-red-500">*</span>
+                            </label>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <label class="cursor-pointer flex-1">
+                                    <input type="radio" name="retreat_date" value="5-7" required class="sr-only peer">
+                                    <div class="px-6 py-3 rounded-lg border-2 border-gray-300 peer-checked:border-green-600 peer-checked:bg-green-50 transition-all text-center">
+                                        <span class="font-medium" style="color: #2a472f;">9월 12일(금) - 14일(일)</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer flex-1">
+                                    <input type="radio" name="retreat_date" value="12-14" required class="sr-only peer">
+                                    <div class="px-6 py-3 rounded-lg border-2 border-gray-300 peer-checked:border-green-600 peer-checked:bg-green-50 transition-all text-center">
+                                        <span class="font-medium" style="color: #2a472f;">9월 19일(금) - 21일(일)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                참가 동기 (자유롭게 작성해 주세요)
+                            </label>
+                            <textarea name="motivation" rows="4" 
+                                      placeholder="이번 리트릿에 참가하고 싶은 이유를 편하게 적어주세요"
+                                      class="w-full px-4 py-3 rounded-lg premium-input"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                건강 상태 및 특이사항 (선택)
+                            </label>
+                            <textarea name="health" rows="3" 
+                                      placeholder="알레르기, 복용 중인 약, 신체적 제한사항 등"
+                                      class="w-full px-4 py-3 rounded-lg premium-input"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                특별 요청사항 (선택)
+                            </label>
+                            <textarea name="requests" rows="3" 
+                                      placeholder="식단, 숙소 배정 등에 대한 요청사항"
+                                      class="w-full px-4 py-3 rounded-lg premium-input"></textarea>
+                        </div>
+                        
+                        <!-- Payment Info -->
+                        <div class="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl p-6">
+                            <h3 class="font-bold text-lg mb-3 text-gray-800">
+                                <i class="fas fa-info-circle text-amber-600 mr-2"></i>예약금 안내
+                            </h3>
+                            <p class="text-gray-700 mb-3">참가 신청 후 아래 계좌로 예약금 (₩200,000)을 입금해 주시면 신청이 완료됩니다.</p>
+                            <div class="bg-white rounded-lg p-4 text-center">
+                                <p class="font-bold text-xl text-gray-800">SC제일은행</p>
+                                <p class="font-bold text-xl text-gray-800">김혜림</p>
+                                <p class="font-bold text-xl text-gray-800">607-2003-7586</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-3 text-center">
+                                * 입금 확인 후 담당자가 개별 연락드릴 예정입니다<br>
+                                * 문의사항: <a href="tel:010-3118-5870" class="text-amber-600 font-semibold">010-3118-5870</a>
+                            </p>
+                        </div>
+                        
+                        <!-- Privacy Agreement -->
+                        <div class="flex items-start">
+                            <input type="checkbox" id="privacy" name="privacy" required 
+                                   class="mt-1 mr-3">
+                            <label for="privacy" class="text-sm text-gray-700">
+                                개인정보 수집 및 이용에 동의합니다. 수집된 정보는 프로그램 운영 목적으로만 사용되며, 종료 후 안전하게 폐기됩니다.
+                            </label>
+                        </div>
+                        
+                        <!-- Submit Buttons -->
+                        <div class="space-y-3">
+                            <button type="submit" class="w-full premium-btn text-white font-bold py-5 rounded-lg text-xl">
+                                지금 바로 신청 완료하기
+                            </button>
+                            <button type="button" onclick="backToLanding()" 
+                                    class="w-full bg-gray-200 text-gray-700 font-bold py-4 rounded-lg text-lg hover:bg-gray-300 transition">
+                                돌아가기
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thank You Page -->
+    <div id="thankYouPage" class="page-section">
+        <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-emerald-50">
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-2xl w-full">
+                <div class="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-8 text-center">
+                    <i class="fas fa-check-circle text-5xl mb-4"></i>
+                    <h1 class="serif-font text-3xl font-bold mb-2">신청이 완료되었습니다!</h1>
+                </div>
+                
+                <div class="p-8 text-center">
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        당신의 소중한 신청이 무사히 접수되었습니다.<br>
+                        함께할 수 있어 벌써부터 마음이 따뜻해집니다.
+                    </p>
+                    
+                    <div class="bg-green-50 rounded-xl p-6 mb-6">
+                        <h3 class="font-bold text-lg mb-3">다음 단계</h3>
+                        <ol class="text-left space-y-2 text-gray-700">
+                            <li><span class="font-semibold">1.</span> 예약금 입금 (SC제일은행 607-2003-7586)</li>
+                            <li><span class="font-semibold">2.</span> 입금 확인 후 24시간 내 개별 연락</li>
+                            <li><span class="font-semibold">3.</span> 상세 안내 및 준비사항 전달</li>
+                        </ol>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-6">
+                        조심스럽게 마음을 내어주신 만큼,<br>
+                        그 선택이 좋은 기억으로 남을 수 있도록<br>
+                        저희도 정성을 다해 준비하겠습니다.
+                    </p>
+                    
+                    <div class="bg-gray-50 rounded-xl p-4 mb-8">
+                        <p class="text-gray-700">
+                            <i class="fas fa-phone-alt text-green-600 mr-2"></i>
+                            궁금한 점이 있으시면 언제든 연락주세요<br>
+                            <a href="tel:010-3118-5870" class="text-green-700 font-bold text-lg">010-3118-5870</a>
+                        </p>
+                    </div>
+                    
+                    <button onclick="backToLanding()" class="premium-btn text-white font-bold py-3 px-8 rounded-full">
+                        메인으로 돌아가기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="modal">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold mb-6 text-center">관리자 로그인</h2>
+            <form id="adminLoginForm">
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">아이디</label>
+                    <input type="text" id="adminId" class="w-full px-4 py-3 rounded-lg premium-input" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">비밀번호</label>
+                    <input type="password" id="adminPassword" class="w-full px-4 py-3 rounded-lg premium-input" required>
+                </div>
+                <div class="space-y-3">
+                    <button type="submit" class="w-full premium-btn text-white font-bold py-3 rounded-lg">
+                        로그인
+                    </button>
+                    <button type="button" onclick="closeAdminModal()" class="w-full bg-gray-200 text-gray-700 font-bold py-3 rounded-lg hover:bg-gray-300 transition">
+                        취소
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="page-section">
+        <div class="min-h-screen bg-gray-100 py-8">
+            <div class="container mx-auto px-4">
+                <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="flex justify-between items-center mb-8">
+                        <h1 class="text-3xl font-bold text-gray-800">관리자 대시보드</h1>
+                        <div class="flex gap-3">
+                            <button onclick="addTestData()" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+                                <i class="fas fa-plus mr-2"></i>테스트 데이터 추가
+                            </button>
+                            <button onclick="clearAllData()" class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition">
+                                <i class="fas fa-trash mr-2"></i>전체 삭제
+                            </button>
+                            <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition">
+                                <i class="fas fa-sign-out-alt mr-2"></i>로그아웃
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
+                                <h3 class="text-lg mb-2">총 신청자</h3>
+                                <p class="text-3xl font-bold" id="totalApplications">0</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-6">
+                                <h3 class="text-lg mb-2">오늘 신청</h3>
+                                <p class="text-3xl font-bold" id="todayApplications">0</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl p-6">
+                                <h3 class="text-lg mb-2">남은 자리</h3>
+                                <p class="text-3xl font-bold" id="remainingSeats">100</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 참가 신청자 테이블 -->
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">참가 신청자</h2>
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full table-auto">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="px-4 py-3 text-left">번호</th>
+                                    <th class="px-4 py-3 text-left">이름</th>
+                                    <th class="px-4 py-3 text-left">생년월일</th>
+                                    <th class="px-4 py-3 text-left">연락처</th>
+                                    <th class="px-4 py-3 text-left">이메일</th>
+                                    <th class="px-4 py-3 text-left">신청일시</th>
+                                    <th class="px-4 py-3 text-center">상세</th>
+                                </tr>
+                            </thead>
+                            <tbody id="applicationsTable">
+                                <!-- Applications will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- 9월 참석 어려운 분들 이메일 목록 -->
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">9월 참석이 어려운 분들 (다음 회차 알림 신청)</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-auto">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="px-4 py-3 text-left">번호</th>
+                                    <th class="px-4 py-3 text-left">이메일 주소</th>
+                                    <th class="px-4 py-3 text-left">등록 일시</th>
+                                </tr>
+                            </thead>
+                            <tbody id="emailNotificationsTable">
+                                <!-- Email notifications will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollIndicator.style.width = scrolled + '%';
+        });
+
+        // Image Slider
+        let currentSlide = 0;
+
+        window.moveSlide = function(direction) {
+            const slides = document.querySelectorAll('#imageSlider .slider-slide');
+            const totalSlides = slides.length;
+            
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            
+            const slider = document.querySelector('#imageSlider .slider-wrapper');
+            if (slider) {
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+        }
+
+        // Auto-play slider
+        setInterval(() => {
+            window.moveSlide(1);
+        }, 5000);
+
+        // Day 1 Slider
+        let day1Slide = 0;
+        function moveDay1Slide(direction) {
+            const slides = document.querySelectorAll('.day1-slider .slider-slide');
+            const dots = document.querySelectorAll('.day1-dot');
+            const totalSlides = slides.length;
+            
+            day1Slide += direction;
+            if (day1Slide < 0) day1Slide = totalSlides - 1;
+            if (day1Slide >= totalSlides) day1Slide = 0;
+            
+            const slider = document.querySelector('.day1-slider .slider-wrapper');
+            slider.style.transform = `translateX(-${day1Slide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-gray-800', index === day1Slide);
+                dot.classList.toggle('bg-gray-300', index !== day1Slide);
+            });
+        }
+
+        // Day 2 Slider
+        let day2Slide = 0;
+        function moveDay2Slide(direction) {
+            const slides = document.querySelectorAll('.day2-slider .slider-slide');
+            const dots = document.querySelectorAll('.day2-dot');
+            const totalSlides = slides.length;
+            
+            day2Slide += direction;
+            if (day2Slide < 0) day2Slide = totalSlides - 1;
+            if (day2Slide >= totalSlides) day2Slide = 0;
+            
+            const slider = document.querySelector('.day2-slider .slider-wrapper');
+            slider.style.transform = `translateX(-${day2Slide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-gray-800', index === day2Slide);
+                dot.classList.toggle('bg-gray-300', index !== day2Slide);
+            });
+        }
+
+        // Day 3 Slider
+        let day3Slide = 0;
+        function moveDay3Slide(direction) {
+            const slides = document.querySelectorAll('.day3-slider .slider-slide');
+            const dots = document.querySelectorAll('.day3-dot');
+            const totalSlides = slides.length;
+            
+            day3Slide += direction;
+            if (day3Slide < 0) day3Slide = totalSlides - 1;
+            if (day3Slide >= totalSlides) day3Slide = 0;
+            
+            const slider = document.querySelector('.day3-slider .slider-wrapper');
+            slider.style.transform = `translateX(-${day3Slide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-gray-800', index === day3Slide);
+                dot.classList.toggle('bg-gray-300', index !== day3Slide);
+            });
+        }
+
+        // Auto-play for day sliders
+        setInterval(() => {
+            moveDay1Slide(1);
+        }, 5500);
+        
+        setInterval(() => {
+            moveDay2Slide(1);
+        }, 6000);
+        
+        setInterval(() => {
+            moveDay3Slide(1);
+        }, 6500);
+
+        // FAQ Toggle
+        function toggleFAQ(id) {
+            const content = document.getElementById(`faq-content-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Page Navigation
+        function showApplicationForm() {
+            document.getElementById('landingPage').classList.remove('active');
+            document.getElementById('applicationPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function backToLanding() {
+            document.getElementById('applicationPage').classList.remove('active');
+            document.getElementById('thankYouPage').classList.remove('active');
+            document.getElementById('adminDashboard').classList.remove('active');
+            document.getElementById('landingPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Initialize form with good UX
+        document.addEventListener('DOMContentLoaded', function() {
+            // EmailJS 초기화
+            if (typeof emailjs !== 'undefined') {
+                try {
+                    emailjs.init('vTXO9oQpgZrlZUwyh'); // EmailJS Public Key
+                    console.log('✅ EmailJS 초기화 완료 - Public Key: vTXO9oQpgZrlZUwyh');
+                    console.log('✅ EmailJS 객체:', emailjs);
+                } catch (error) {
+                    console.error('❌ EmailJS 초기화 실패:', error);
+                }
+            } else {
+                console.error('❌ EmailJS 라이브러리가 로드되지 않았습니다');
+                console.log('📋 로드된 스크립트 확인:', document.querySelectorAll('script[src*="emailjs"]'));
+            }
+            
+            // Birth year is already set to 1970 by default in HTML
+            // This provides a good starting point for 50-60 age range
+        });
+        
+        // Email Notification Form Submission
+        document.getElementById('emailNotificationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = e.target.querySelector('input[type="email"]').value;
+            
+            // Save to localStorage with timestamp
+            let emailList = JSON.parse(localStorage.getItem('retreat_email_notifications') || '[]');
+            
+            // 중복 체크 및 객체 형태로 저장
+            const emailExists = emailList.some(item => 
+                (typeof item === 'string' && item === email) || 
+                (typeof item === 'object' && item.email === email)
+            );
+            
+            if (!emailExists) {
+                emailList.push({
+                    email: email,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('retreat_email_notifications', JSON.stringify(emailList));
+            }
+            
+            // API로 이메일 알림 전송 (Vercel 서버리스 함수)
+            try {
+                await fetch('/api/email-notification', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        email: email,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+            } catch (error) {
+                console.log('Email notification API error:', error);
+            }
+            
+            // EmailJS로 직접 이메일 전송
+            try {
+                if (typeof emailjs !== 'undefined') {
+                    console.log('EmailJS 전송 시작...');
+                    const templateParams = {
+                        to_email: 'sallykimhyerim@gmail.com',
+                        from_email: email,
+                        message: `새로운 이메일 알림 신청: ${email}`,
+                        date: new Date().toLocaleString('ko-KR')
+                    };
+                    
+                    console.log('템플릿 파라미터:', templateParams);
+                    
+                    const response = await emailjs.send(
+                        'service_abc123',  // EmailJS Service ID
+                        'template_v766kpj',  // EmailJS Template ID
+                        templateParams
+                    );
+                    console.log('이메일 전송 성공:', response);
+                    console.log('전송된 이메일:', email);
+                } else {
+                    console.error('EmailJS가 로드되지 않았습니다');
+                }
+            } catch (emailError) {
+                console.error('EmailJS 오류 상세:', emailError);
+                alert('이메일 전송 중 오류가 발생했습니다. 콘솔을 확인하세요.');
+            }
+            
+            // Show success message
+            alert('이메일이 등록되었습니다. 다음 리트릿 소식을 보내드리겠습니다.');
+            e.target.reset();
+        });
+        
+        // Application Form Submission
+        document.getElementById('applicationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            // Combine birth date fields
+            const birthYear = formData.get('birth_year');
+            const birthMonth = formData.get('birth_month');
+            const birthDay = formData.get('birth_day');
+            const birthdate = birthYear && birthMonth && birthDay ? `${birthYear}-${birthMonth}-${birthDay}` : '';
+            
+            const application = {
+                id: Date.now(),
+                name: formData.get('name'),
+                birthdate: birthdate,
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                retreat_date: formData.get('retreat_date'),
+                motivation: formData.get('motivation'),
+                health: formData.get('health'),
+                requests: formData.get('requests'),
+                timestamp: new Date().toISOString()
+            };
+            
+            // Save to localStorage
+            let applications = JSON.parse(localStorage.getItem('retreat_applications') || '[]');
+            applications.push(application);
+            localStorage.setItem('retreat_applications', JSON.stringify(applications));
+            
+            // EmailJS로 관리자에게 이메일 전송
+            if (typeof emailjs !== 'undefined') {
+                try {
+                    console.log('🚀 EmailJS 이메일 전송 시작...');
+                    console.log('📧 EmailJS 설정 확인:');
+                    console.log('  - Service ID: service_abc123');
+                    console.log('  - Template ID: template_v766kpj');
+                    console.log('  - Public Key: vTXO9oQpgZrlZUwyh');
+                    
+                    const selectedDate = formData.get('retreat_date') === '5-7' ? '9월 12일(금) - 14일(일)' : '9월 19일(금) - 21일(일)';
+                    
+                    // 작동하는 이메일 알림과 같은 간단한 구조 사용
+                    const emailParams = {
+                        to_email: 'sallykimhyerim@gmail.com',
+                        from_email: application.email,
+                        message: `🌿 새로운 리트릿 신청이 접수되었습니다!
+
+👤 신청자 정보:
+이름: ${application.name}
+생년월일: ${application.birthdate}
+연락처: ${application.phone}
+이메일: ${application.email}
+선택 일정: ${selectedDate}
+
+💭 참가 동기:
+${application.motivation || '작성하지 않음'}
+
+🏥 건강 상태:
+${application.health || '특이사항 없음'}
+
+📝 요청사항:
+${application.requests || '요청사항 없음'}
+
+📅 신청 시간: ${new Date().toLocaleString('ko-KR')}`,
+                        date: new Date().toLocaleString('ko-KR')
+                    };
+                    
+                    console.log('📋 전송할 이메일 파라미터:', emailParams);
+                    
+                    // EmailJS send 호출 전 상태 확인
+                    console.log('🔧 EmailJS 상태 확인:', {
+                        'emailjs 객체 존재': typeof emailjs !== 'undefined',
+                        'send 함수 존재': typeof emailjs.send === 'function',
+                        'emailjs 버전': emailjs.version || 'unknown'
+                    });
+                    
+                    const response = await emailjs.send(
+                        'service_abc123',
+                        'template_v766kpj',
+                        emailParams
+                    );
+                    
+                    console.log('✅ EmailJS 응답 성공:', response);
+                    console.log('✅ 관리자 이메일 전송 완료!');
+                    
+                    // 성공 메시지 표시 (옵션)
+                    alert('신청이 성공적으로 접수되었고, 확인 이메일이 전송되었습니다!');
+                    
+                } catch (error) {
+                    console.error('❌ EmailJS 이메일 전송 실패:', error);
+                    console.error('❌ 오류 상세:', {
+                        'error name': error.name,
+                        'error message': error.message,
+                        'error status': error.status,
+                        'error text': error.text,
+                        'full error': error
+                    });
+                    
+                    // 사용자에게 오류 알림 (선택적)
+                    alert('신청은 접수되었지만 이메일 전송에 문제가 있었습니다. 관리자에게 문의해 주세요.');
+                }
+            } else {
+                console.error('❌ EmailJS가 로드되지 않았습니다');
+                console.log('💡 EmailJS 스크립트 태그를 확인해 주세요');
+            }
+            
+            // Debug: 저장 확인
+            console.log('신청 저장됨:', application);
+            console.log('전체 신청 목록:', applications);
+            
+            // Show thank you page
+            document.getElementById('applicationPage').classList.remove('active');
+            document.getElementById('thankYouPage').classList.add('active');
+            window.scrollTo(0, 0);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Admin Functions
+        document.getElementById('adminBtn').addEventListener('click', function() {
+            document.getElementById('adminModal').classList.add('active');
+        });
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+        }
+
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('adminId').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            // Simple authentication (in production, this should be server-side)
+            if (id === 'sally' && password === 'retreat2025') {
+                closeAdminModal();
+                showAdminDashboard();
+            } else {
+                alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+            }
+        });
+
+        function showAdminDashboard() {
+            document.getElementById('landingPage').classList.remove('active');
+            document.getElementById('adminDashboard').classList.add('active');
+            loadApplications();
+            loadEmailNotifications();
+            window.scrollTo(0, 0);
+        }
+
+        function loadEmailNotifications() {
+            const emailList = JSON.parse(localStorage.getItem('retreat_email_notifications') || '[]');
+            const tbody = document.getElementById('emailNotificationsTable');
+            
+            // Clear table
+            tbody.innerHTML = '';
+            
+            // 이메일 목록이 없을 경우 메시지 표시
+            if (emailList.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" class="px-4 py-8 text-center text-gray-500">아직 이메일 알림 신청이 없습니다.</td></tr>';
+                return;
+            }
+            
+            // Add emails to table
+            emailList.forEach((email, index) => {
+                const row = document.createElement('tr');
+                row.className = 'border-b hover:bg-gray-50';
+                
+                // 이메일이 객체인 경우와 문자열인 경우 모두 처리
+                let emailAddress = email;
+                let timestamp = new Date().toLocaleString('ko-KR');
+                
+                if (typeof email === 'object' && email.email) {
+                    emailAddress = email.email;
+                    timestamp = email.timestamp ? new Date(email.timestamp).toLocaleString('ko-KR') : timestamp;
+                }
+                
+                row.innerHTML = `
+                    <td class="px-4 py-3">${index + 1}</td>
+                    <td class="px-4 py-3 font-semibold">${emailAddress}</td>
+                    <td class="px-4 py-3">${timestamp}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        function loadApplications() {
+            const applications = JSON.parse(localStorage.getItem('retreat_applications') || '[]');
+            const tbody = document.getElementById('applicationsTable');
+            const today = new Date().toDateString();
+            
+            // Debug: localStorage 확인
+            console.log('localStorage에서 불러온 신청 목록:', applications);
+            console.log('신청 개수:', applications.length);
+            
+            // Update statistics
+            document.getElementById('totalApplications').textContent = applications.length;
+            document.getElementById('todayApplications').textContent = applications.filter(app => 
+                new Date(app.timestamp).toDateString() === today
+            ).length;
+            document.getElementById('remainingSeats').textContent = Math.max(0, 100 - applications.length);
+            
+            // Clear table
+            tbody.innerHTML = '';
+            
+            // 신청 내역이 없을 경우 메시지 표시
+            if (applications.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-500">아직 신청 내역이 없습니다.</td></tr>';
+                return;
+            }
+            
+            // Add applications to table
+            applications.forEach((app, index) => {
+                const row = document.createElement('tr');
+                row.className = 'border-b hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="px-4 py-3">${index + 1}</td>
+                    <td class="px-4 py-3 font-semibold">${app.name}</td>
+                    <td class="px-4 py-3">${app.birthdate}</td>
+                    <td class="px-4 py-3">${app.phone}</td>
+                    <td class="px-4 py-3">${app.email}</td>
+                    <td class="px-4 py-3">${new Date(app.timestamp).toLocaleString('ko-KR')}</td>
+                    <td class="px-4 py-3 text-center">
+                        <button onclick="viewApplication(${app.id})" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                            상세보기
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function viewApplication(id) {
+            const applications = JSON.parse(localStorage.getItem('retreat_applications') || '[]');
+            const app = applications.find(a => a.id === id);
+            
+            if (app) {
+                alert(`
+신청자 정보
+------------------
+이름: ${app.name}
+생년월일: ${app.birthdate}
+연락처: ${app.phone}
+이메일: ${app.email}
+참가 동기: ${app.motivation || '없음'}
+건강 상태: ${app.health || '없음'}
+특별 요청: ${app.requests || '없음'}
+신청일시: ${new Date(app.timestamp).toLocaleString('ko-KR')}
+                `);
+            }
+        }
+
+        function logout() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                backToLanding();
+            }
+        }
+        
+        // 테스트 데이터 추가 함수
+        function addTestData() {
+            const testData = {
+                id: Date.now(),
+                name: '테스트 신청자 ' + Math.floor(Math.random() * 100),
+                birthdate: '1970-0' + (Math.floor(Math.random() * 9) + 1) + '-15',
+                phone: '010-' + Math.floor(Math.random() * 9000 + 1000) + '-' + Math.floor(Math.random() * 9000 + 1000),
+                email: 'test' + Math.floor(Math.random() * 1000) + '@example.com',
+                motivation: '바쁜 일상에서 벗어나 저를 돌아보고 싶습니다.',
+                health: '특이사항 없음',
+                requests: '조용한 방을 부탁드립니다.',
+                timestamp: new Date().toISOString()
+            };
+            
+            let applications = JSON.parse(localStorage.getItem('retreat_applications') || '[]');
+            applications.push(testData);
+            localStorage.setItem('retreat_applications', JSON.stringify(applications));
+            
+            alert('테스트 데이터가 추가되었습니다.');
+            loadApplications();
+        }
+        
+        // 전체 데이터 삭제 함수
+        function clearAllData() {
+            if (confirm('정말로 모든 신청 데이터를 삭제하시겠습니까?')) {
+                localStorage.removeItem('retreat_applications');
+                alert('모든 데이터가 삭제되었습니다.');
+                loadApplications();
+            }
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
