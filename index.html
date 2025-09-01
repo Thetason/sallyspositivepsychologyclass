@@ -1125,6 +1125,16 @@
                                                  alt="Sally Kim - 자연 속에서" 
                                                  class="w-full h-80 object-cover object-center">
                                         </div>
+                                        <div class="slider-slide min-w-full">
+                                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=400&fit=crop" 
+                                                 alt="Sally Kim - 야외에서" 
+                                                 class="w-full h-80 object-cover object-center">
+                                        </div>
+                                        <div class="slider-slide min-w-full">
+                                            <img src="sally-photo-2.jpg" 
+                                                 alt="Sally Kim - 실내" 
+                                                 class="w-full h-80 object-cover object-center">
+                                        </div>
                                     </div>
                                     <!-- Slider Controls -->
                                     <button onclick="moveInstructorSlide(-1)" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all">
@@ -1137,6 +1147,8 @@
                                     <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2" id="instructorDots">
                                         <span class="slider-dot w-2 h-2 bg-white rounded-full cursor-pointer" onclick="goToInstructorSlide(0)"></span>
                                         <span class="slider-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer" onclick="goToInstructorSlide(1)"></span>
+                                        <span class="slider-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer" onclick="goToInstructorSlide(2)"></span>
+                                        <span class="slider-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer" onclick="goToInstructorSlide(3)"></span>
                                     </div>
                                 </div>
                             </div>
@@ -2325,7 +2337,7 @@ ${application.requests || '요청사항 없음'}
         }
 
         function moveInstructorSlide(direction) {
-            const totalSlides = 2;
+            const totalSlides = 4;
             instructorSlideIndex += direction;
             
             if (instructorSlideIndex < 0) {
