@@ -1116,24 +1116,14 @@
                                 <div class="instructor-slider overflow-hidden rounded-xl shadow-lg">
                                     <div class="slider-wrapper flex transition-transform duration-500" id="instructorSlider">
                                         <div class="slider-slide min-w-full">
-                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop" 
+                                            <img src="sally-photo-1.jpg" 
                                                  alt="Sally Kim - 카페에서" 
-                                                 class="w-full h-80 object-cover">
+                                                 class="w-full h-80 object-cover object-center">
                                         </div>
                                         <div class="slider-slide min-w-full">
-                                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&h=400&fit=crop" 
-                                                 alt="Sally Kim - 요가" 
-                                                 class="w-full h-80 object-cover">
-                                        </div>
-                                        <div class="slider-slide min-w-full">
-                                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=400&fit=crop" 
+                                            <img src="coach-nature.jpg" 
                                                  alt="Sally Kim - 자연 속에서" 
-                                                 class="w-full h-80 object-cover">
-                                        </div>
-                                        <div class="slider-slide min-w-full">
-                                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=400&fit=crop" 
-                                                 alt="Sally Kim - 프로필" 
-                                                 class="w-full h-80 object-cover">
+                                                 class="w-full h-80 object-cover object-center">
                                         </div>
                                     </div>
                                     <!-- Slider Controls -->
@@ -1147,8 +1137,6 @@
                                     <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2" id="instructorDots">
                                         <span class="slider-dot w-2 h-2 bg-white rounded-full cursor-pointer" onclick="goToInstructorSlide(0)"></span>
                                         <span class="slider-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer" onclick="goToInstructorSlide(1)"></span>
-                                        <span class="slider-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer" onclick="goToInstructorSlide(2)"></span>
-                                        <span class="slider-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer" onclick="goToInstructorSlide(3)"></span>
                                     </div>
                                 </div>
                             </div>
@@ -2337,7 +2325,7 @@ ${application.requests || '요청사항 없음'}
         }
 
         function moveInstructorSlide(direction) {
-            const totalSlides = 4;
+            const totalSlides = 2;
             instructorSlideIndex += direction;
             
             if (instructorSlideIndex < 0) {
