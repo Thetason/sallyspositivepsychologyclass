@@ -1111,19 +1111,46 @@
                     <div class="grid grid-cols-1 lg:grid-cols-5 gap-0">
                         <!-- Photo Gallery Section -->
                         <div class="lg:col-span-2 p-8 bg-gradient-to-br from-green-50 to-white">
-                            <div class="grid grid-cols-2 gap-3 mb-6">
-                                <img src="coach-nature.jpg" 
-                                     alt="Sally Kim - 프로필" 
-                                     class="rounded-xl shadow-md w-full h-32 object-cover hover:shadow-xl transition-shadow">
-                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=200&fit=crop" 
-                                     alt="Sally Kim - 코칭" 
-                                     class="rounded-xl shadow-md w-full h-32 object-cover hover:shadow-xl transition-shadow">
-                                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=300&h=200&fit=crop" 
-                                     alt="Sally Kim - 강의" 
-                                     class="rounded-xl shadow-md w-full h-32 object-cover hover:shadow-xl transition-shadow">
-                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=300&h=200&fit=crop" 
-                                     alt="Sally Kim - 워크숍" 
-                                     class="rounded-xl shadow-md w-full h-32 object-cover hover:shadow-xl transition-shadow">
+                            <!-- Photo Slider -->
+                            <div class="relative mb-6">
+                                <div class="instructor-slider overflow-hidden rounded-xl shadow-lg">
+                                    <div class="slider-wrapper flex transition-transform duration-500" id="instructorSlider">
+                                        <div class="slider-slide min-w-full">
+                                            <img src="sally-1.jpg" 
+                                                 alt="Sally Kim - 카페에서" 
+                                                 class="w-full h-80 object-cover">
+                                        </div>
+                                        <div class="slider-slide min-w-full">
+                                            <img src="sally-2.jpg" 
+                                                 alt="Sally Kim - 요가" 
+                                                 class="w-full h-80 object-cover">
+                                        </div>
+                                        <div class="slider-slide min-w-full">
+                                            <img src="sally-3.jpg" 
+                                                 alt="Sally Kim - 자연 속에서" 
+                                                 class="w-full h-80 object-cover">
+                                        </div>
+                                        <div class="slider-slide min-w-full">
+                                            <img src="coach-nature.jpg" 
+                                                 alt="Sally Kim - 프로필" 
+                                                 class="w-full h-80 object-cover">
+                                        </div>
+                                    </div>
+                                    <!-- Slider Controls -->
+                                    <button onclick="moveInstructorSlide(-1)" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all">
+                                        <i class="fas fa-chevron-left text-gray-700"></i>
+                                    </button>
+                                    <button onclick="moveInstructorSlide(1)" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all">
+                                        <i class="fas fa-chevron-right text-gray-700"></i>
+                                    </button>
+                                    <!-- Dots Indicator -->
+                                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2" id="instructorDots">
+                                        <span class="slider-dot w-2 h-2 bg-white rounded-full cursor-pointer" onclick="goToInstructorSlide(0)"></span>
+                                        <span class="slider-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer" onclick="goToInstructorSlide(1)"></span>
+                                        <span class="slider-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer" onclick="goToInstructorSlide(2)"></span>
+                                        <span class="slider-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer" onclick="goToInstructorSlide(3)"></span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-center">
                                 <h3 class="text-3xl font-bold text-gray-800">Sally Kim</h3>
@@ -2292,6 +2319,51 @@ ${application.requests || '요청사항 없음'}
                 e.target.classList.remove('active');
             }
         });
+
+        // Instructor Slider Functions
+        let instructorSlideIndex = 0;
+        const instructorSlider = document.getElementById('instructorSlider');
+        const instructorDots = document.getElementById('instructorDots')?.getElementsByClassName('slider-dot');
+
+        function updateInstructorDots() {
+            if (instructorDots) {
+                for (let i = 0; i < instructorDots.length; i++) {
+                    instructorDots[i].classList.remove('bg-white');
+                    instructorDots[i].classList.add('bg-white/50');
+                }
+                instructorDots[instructorSlideIndex].classList.remove('bg-white/50');
+                instructorDots[instructorSlideIndex].classList.add('bg-white');
+            }
+        }
+
+        function moveInstructorSlide(direction) {
+            const totalSlides = 4;
+            instructorSlideIndex += direction;
+            
+            if (instructorSlideIndex < 0) {
+                instructorSlideIndex = totalSlides - 1;
+            } else if (instructorSlideIndex >= totalSlides) {
+                instructorSlideIndex = 0;
+            }
+            
+            if (instructorSlider) {
+                instructorSlider.style.transform = `translateX(-${instructorSlideIndex * 100}%)`;
+                updateInstructorDots();
+            }
+        }
+
+        function goToInstructorSlide(index) {
+            instructorSlideIndex = index;
+            if (instructorSlider) {
+                instructorSlider.style.transform = `translateX(-${instructorSlideIndex * 100}%)`;
+                updateInstructorDots();
+            }
+        }
+
+        // Auto-play instructor slider
+        setInterval(() => {
+            moveInstructorSlide(1);
+        }, 5000);
     </script>
 </body>
 </html>
