@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>힐링 여정 참가 신청 | Sally's 긍정심리학 클래스</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-green: #2a472f;
+            --secondary-green: #4a5d38;
+            --light-green: #ddd7c7;
+            --accent-gold: #78856e;
+            --warm-beige: #ddd7c7;
+            --soft-gray: #f5f3f0;
+            --dark-forest: #2a472f;
+            --sage-green: #78856e;
+            --soft-beige: #ddd7c7;
+            --olive-green: #4a5d38;
+        }
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background: linear-gradient(to bottom, #ffffff, #f0fdf4);
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            font-weight: 700;
+        }
+
+        .form-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(42, 71, 47, 0.1);
+        }
+
+        .form-field {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .required {
+            color: #e53e3e;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--secondary-green);
+            box-shadow: 0 0 0 3px rgba(74, 93, 56, 0.1);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--secondary-green) 0%, var(--primary-green) 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 93, 56, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .alert-box {
+            background: #fef3cd;
+            border: 1px solid #f6c343;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .alert-box h4 {
+            color: #8b4513;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .alert-box p {
+            color: #8b4513;
+            margin: 0;
+        }
+
+        .bank-info {
+            background: var(--soft-beige);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .bank-info h3 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .bank-info .account-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .privacy-notice {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary-green);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--primary-green);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-600 to-green-700 text-white py-8">
+        <div class="container mx-auto max-w-4xl px-4">
+            <div class="text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">힐링 여정 참가 신청</h1>
+                <p class="text-xl opacity-90">'나'를 위한 소중한 시간을 위해 아래 정보를 입력해 주세요</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Form Section -->
+    <section class="form-section py-12">
+        <div class="container mx-auto max-w-4xl px-4">
+            <!-- Back Button -->
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left mr-2"></i>
+                메인 페이지로 돌아가기
+            </a>
+
+            <div class="form-container p-8 md:p-12">
+                <form id="applicationForm" class="space-y-6">
+                    <!-- 성함 -->
+                    <div class="form-field">
+                        <label class="form-label">성함 <span class="required">*</span></label>
+                        <input type="text" name="name" class="form-input" required>
+                    </div>
+
+                    <!-- 생년월일 -->
+                    <div class="form-field">
+                        <label class="form-label">생년월일 <span class="required">*</span></label>
+                        <div class="grid grid-cols-3 gap-4">
+                            <select name="birth_year" class="form-select" required>
+                                <option value="">연도</option>
+                                <option value="1945">1945년</option>
+                                <option value="1946">1946년</option>
+                                <option value="1947">1947년</option>
+                                <option value="1948">1948년</option>
+                                <option value="1949">1949년</option>
+                                <option value="1950">1950년</option>
+                                <option value="1951">1951년</option>
+                                <option value="1952">1952년</option>
+                                <option value="1953">1953년</option>
+                                <option value="1954">1954년</option>
+                                <option value="1955">1955년</option>
+                                <option value="1956">1956년</option>
+                                <option value="1957">1957년</option>
+                                <option value="1958">1958년</option>
+                                <option value="1959">1959년</option>
+                                <option value="1960">1960년</option>
+                                <option value="1961">1961년</option>
+                                <option value="1962">1962년</option>
+                                <option value="1963">1963년</option>
+                                <option value="1964">1964년</option>
+                                <option value="1965">1965년</option>
+                                <option value="1966">1966년</option>
+                                <option value="1967">1967년</option>
+                                <option value="1968">1968년</option>
+                                <option value="1969">1969년</option>
+                                <option value="1970">1970년</option>
+                                <option value="1971">1971년</option>
+                                <option value="1972">1972년</option>
+                                <option value="1973">1973년</option>
+                                <option value="1974">1974년</option>
+                                <option value="1975">1975년</option>
+                                <option value="1976">1976년</option>
+                                <option value="1977">1977년</option>
+                                <option value="1978">1978년</option>
+                                <option value="1979">1979년</option>
+                                <option value="1980">1980년</option>
+                            </select>
+                            <select name="birth_month" class="form-select" required>
+                                <option value="">월</option>
+                                <option value="01">1월</option>
+                                <option value="02">2월</option>
+                                <option value="03">3월</option>
+                                <option value="04">4월</option>
+                                <option value="05">5월</option>
+                                <option value="06">6월</option>
+                                <option value="07">7월</option>
+                                <option value="08">8월</option>
+                                <option value="09">9월</option>
+                                <option value="10">10월</option>
+                                <option value="11">11월</option>
+                                <option value="12">12월</option>
+                            </select>
+                            <select name="birth_day" class="form-select" required>
+                                <option value="">일</option>
+                                <option value="01">1일</option>
+                                <option value="02">2일</option>
+                                <option value="03">3일</option>
+                                <option value="04">4일</option>
+                                <option value="05">5일</option>
+                                <option value="06">6일</option>
+                                <option value="07">7일</option>
+                                <option value="08">8일</option>
+                                <option value="09">9일</option>
+                                <option value="10">10일</option>
+                                <option value="11">11일</option>
+                                <option value="12">12일</option>
+                                <option value="13">13일</option>
+                                <option value="14">14일</option>
+                                <option value="15">15일</option>
+                                <option value="16">16일</option>
+                                <option value="17">17일</option>
+                                <option value="18">18일</option>
+                                <option value="19">19일</option>
+                                <option value="20">20일</option>
+                                <option value="21">21일</option>
+                                <option value="22">22일</option>
+                                <option value="23">23일</option>
+                                <option value="24">24일</option>
+                                <option value="25">25일</option>
+                                <option value="26">26일</option>
+                                <option value="27">27일</option>
+                                <option value="28">28일</option>
+                                <option value="29">29일</option>
+                                <option value="30">30일</option>
+                                <option value="31">31일</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 연락처 -->
+                    <div class="form-field">
+                        <label class="form-label">연락처 <span class="required">*</span></label>
+                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
+                    </div>
+
+                    <!-- 이메일 -->
+                    <div class="form-field">
+                        <label class="form-label">이메일 <span class="required">*</span></label>
+                        <input type="email" name="email" class="form-input" placeholder="example@email.com" required>
+                    </div>
+
+                    <!-- 참가 동기 -->
+                    <div class="form-field">
+                        <label class="form-label">참가 동기 (자유롭게 작성해 주세요)</label>
+                        <textarea name="motivation" class="form-textarea" rows="5" placeholder="이번 리트릿에 참가하고 싶은 이유를 편하게 적어주세요"></textarea>
+                    </div>
+
+                    <!-- 건강 상태 및 특이사항 -->
+                    <div class="form-field">
+                        <label class="form-label">건강 상태 및 특이사항 (선택)</label>
+                        <textarea name="health_info" class="form-textarea" rows="4" placeholder="알레르기, 복용 중인 약, 신체적 제약사항 등"></textarea>
+                    </div>
+
+                    <!-- 특별 요청사항 -->
+                    <div class="form-field">
+                        <label class="form-label">특별 요청사항 (선택)</label>
+                        <textarea name="special_requests" class="form-textarea" rows="3" placeholder="식단, 숙소 배정 등에 대한 요청사항"></textarea>
+                    </div>
+
+                    <!-- 예약금 안내 -->
+                    <div class="alert-box">
+                        <h4><i class="fas fa-exclamation-circle mr-2"></i>예약금 안내</h4>
+                        <p>참가 신청 후 아래 계좌로 예약금 (<strong>₩200,000</strong>)을 입금해 주시면 신청이 완료됩니다.</p>
+                    </div>
+
+                    <!-- 계좌 정보 -->
+                    <div class="bank-info">
+                        <h3>SC제일은행</h3>
+                        <p class="text-lg mb-2">김혜림</p>
+                        <p class="account-number">607-2003-7586</p>
+                        <p class="text-sm mt-4 text-gray-600">
+                            * 입금 확인 후 담당자가 개별 연락드릴 예정입니다<br>
+                            * 문의사항: <span class="font-semibold text-orange-600">010-3118-5870</span>
+                        </p>
+                    </div>
+
+                    <!-- 개인정보 처리 동의 -->
+                    <div class="form-field">
+                        <label class="flex items-start space-x-3">
+                            <input type="checkbox" name="privacy_agree" class="mt-1" required>
+                            <span class="text-sm text-gray-700">
+                                개인정보 수집 및 이용에 동의합니다. 수집된 정보는 프로그램 운영 목적으로만 사용되며, 종료 후 안전하게 폐기됩니다.
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- 제출 버튼 -->
+                    <div class="text-center pt-6">
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            지금 바로 신청 완료하기
+                        </button>
+                    </div>
+
+                    <!-- 돌아가기 버튼 -->
+                    <div class="text-center pt-4">
+                        <a href="index.html" class="text-gray-500 hover:text-gray-700 transition-colors">
+                            돌아가기
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 개인정보 처리방침 -->
+            <div class="privacy-notice">
+                <p class="text-center">
+                    개인정보 수집 및 이용에 동의합니다. 수집된 정보는 프로그램 운영 목적으로만 사용되며, 종료 후 안전하게 폐기됩니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // EmailJS 초기화
+        (function(){
+            emailjs.init("BWA3v9TtjT9QT8nOZ"); // 기존 랜딩페이지와 동일한 Public Key 사용
+        })();
+
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>신청서 전송 중...';
+            
+            const formData = new FormData(this);
+            const data = {};
+            
+            // 폼 데이터 수집
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // 생년월일 조합
+            if (data.birth_year && data.birth_month && data.birth_day) {
+                data.birth_date = `${data.birth_year}년 ${data.birth_month}월 ${data.birth_day}일`;
+            }
+            
+            // EmailJS로 이메일 전송
+            emailjs.send('service_9lnkrpv', 'template_3u8qx2f', {
+                to_name: 'Sally Kim',
+                to_email: 'sallykimhyerim@gmail.com',
+                from_name: data.name,
+                from_email: data.email,
+                phone: data.phone,
+                birth_date: data.birth_date,
+                motivation: data.motivation || '미작성',
+                health_info: data.health_info || '특이사항 없음',
+                special_requests: data.special_requests || '요청사항 없음',
+                subject: '[힐링 여정 신청] ' + data.name + '님의 참가 신청서',
+                message: `
+새로운 힐링 여정 참가 신청이 접수되었습니다.
+
+▶ 신청자 정보
+- 성함: ${data.name}
+- 생년월일: ${data.birth_date}
+- 연락처: ${data.phone}
+- 이메일: ${data.email}
+
+▶ 참가 동기
+${data.motivation || '미작성'}
+
+▶ 건강 상태 및 특이사항
+${data.health_info || '특이사항 없음'}
+
+▶ 특별 요청사항  
+${data.special_requests || '요청사항 없음'}
+
+※ 예약금 ₩200,000 입금 확인 후 개별 연락 예정
+※ 계좌: SC제일은행 607-2003-7586 (김혜림)
+                `
+            })
+            .then(function() {
+                alert('✅ 신청서가 성공적으로 전송되었습니다!\n\n예약금 입금 후 개별 연락드릴 예정입니다.\n\n📞 문의: 010-3118-5870');
+                window.location.href = 'index.html';
+            })
+            .catch(function(error) {
+                console.error('EmailJS Error:', error);
+                alert('❌ 전송 중 오류가 발생했습니다.\n다시 시도해주시거나 직접 연락해주세요.\n\n📞 문의: 010-3118-5870');
+                
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>지금 바로 신청 완료하기';
+            });
+        });
+
+        // 전화번호 자동 포맷팅
+        document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^\d]/g, '');
+            
+            if (value.length >= 11) {
+                value = value.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+            } else if (value.length >= 7) {
+                value = value.replace(/(\d{3})(\d{4})(\d{0,4})/, '$1-$2-$3');
+            } else if (value.length >= 3) {
+                value = value.replace(/(\d{3})(\d{0,4})/, '$1-$2');
+            }
+            
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
