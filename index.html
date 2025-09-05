@@ -91,6 +91,23 @@
             animation: slide 8s linear infinite;
         }
         
+        /* Hero Slider Animation */
+        .hero-slides {
+            animation: heroSlide 12s infinite;
+        }
+        
+        @keyframes heroSlide {
+            0%, 20% { transform: translateX(0); }
+            25%, 45% { transform: translateX(-100%); }
+            50%, 70% { transform: translateX(-200%); }
+            75%, 95% { transform: translateX(-300%); }
+            100% { transform: translateX(0); }
+        }
+        
+        .slide-indicator.active {
+            background-color: #2a472f !important;
+        }
+        
         @keyframes pulse-glow {
             0%, 100% { 
                 box-shadow: 0 0 20px rgba(74, 93, 56, 0.4);
@@ -471,9 +488,27 @@
                         매주 다른 주제로 의미 있는 변화를 만들어가는 <span class="blink-text">4주 프로그램</span>
                     </p>
                     
-                    <!-- Hero Image -->
+                    <!-- Hero Image Slider -->
                     <div class="my-12" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-                        <img src="lounge-main-1.jpg" alt="라운지 아카식 - 긍정심리학 클래스" class="rounded-2xl shadow-2xl w-full max-w-2xl mx-auto" style="border: 3px solid #ddd7c7;">
+                        <div class="relative w-full max-w-2xl mx-auto">
+                            <!-- 슬라이드 컨테이너 -->
+                            <div class="hero-slider overflow-hidden rounded-2xl shadow-2xl" style="border: 3px solid #ddd7c7;">
+                                <div class="flex hero-slides">
+                                    <img src="lounge-main-1.jpg" alt="라운지 아카식 - 긍정심리학 클래스 1" class="w-full h-auto flex-shrink-0">
+                                    <img src="akashic-2.png" alt="라운지 아카식 - 긍정심리학 클래스 2" class="w-full h-auto flex-shrink-0">
+                                    <img src="akashic-4.png" alt="라운지 아카식 - 긍정심리학 클래스 3" class="w-full h-auto flex-shrink-0">
+                                    <img src="akashic-1.png" alt="라운지 아카식 - 긍정심리학 클래스 4" class="w-full h-auto flex-shrink-0">
+                                </div>
+                            </div>
+                            
+                            <!-- 슬라이드 인디케이터 -->
+                            <div class="flex justify-center mt-4 space-x-2">
+                                <div class="slide-indicator active w-2 h-2 bg-green-600 rounded-full"></div>
+                                <div class="slide-indicator w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="slide-indicator w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="slide-indicator w-2 h-2 bg-gray-300 rounded-full"></div>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- New Description Text -->
