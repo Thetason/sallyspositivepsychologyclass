@@ -82,6 +82,15 @@
             animation: float 6s ease-in-out infinite;
         }
         
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .animate-slide {
+            animation: slide 8s linear infinite;
+        }
+        
         @keyframes pulse-glow {
             0%, 100% { 
                 box-shadow: 0 0 20px rgba(74, 93, 56, 0.4);
@@ -424,10 +433,20 @@
                             </div>
                             <div class="px-8 py-4 rounded-2xl border-2 border-amber-500 bg-amber-50">
                                 <p class="font-bold text-lg mb-2" style="color: #2a472f;">📍 수업 장소</p>
-                                <p class="text-lg" style="color: #4a5d38;">
+                                <p class="text-lg mb-4" style="color: #4a5d38;">
                                     <span class="font-semibold">온라인</span> 또는 <span class="font-semibold">오프라인</span> 선택 가능<br>
-                                    <span class="text-lg">오프라인: 안국역 프라이빗 라운지 (차/커피 제공)</span>
+                                    <span class="text-lg">오프라인: 라운지 아카식 (예정) - 안국역 프라이빗 라운지 (차/커피 제공)</span>
                                 </p>
+                                
+                                <!-- 라운지 사진 슬라이드 -->
+                                <div class="relative overflow-hidden rounded-lg">
+                                    <div class="flex space-x-2 animate-slide">
+                                        <img src="space1.jpeg" alt="라운지 아카식 내부 1" class="w-20 h-16 object-cover rounded flex-shrink-0">
+                                        <img src="space2.jpeg" alt="라운지 아카식 내부 2" class="w-20 h-16 object-cover rounded flex-shrink-0">
+                                        <img src="space3.jpeg" alt="라운지 아카식 내부 3" class="w-20 h-16 object-cover rounded flex-shrink-0">
+                                        <img src="space4.jpeg" alt="라운지 아카식 내부 4" class="w-20 h-16 object-cover rounded flex-shrink-0">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
