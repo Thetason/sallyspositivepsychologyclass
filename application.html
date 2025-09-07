@@ -331,22 +331,6 @@
                         <textarea name="special_requests" class="form-textarea" rows="3" placeholder="식단, 숙소 배정 등에 대한 요청사항"></textarea>
                     </div>
 
-                    <!-- 예약금 안내 -->
-                    <div class="alert-box">
-                        <h4><i class="fas fa-exclamation-circle mr-2"></i>예약금 안내</h4>
-                        <p>참가 신청 후 아래 계좌로 예약금 (<strong>₩200,000</strong>)을 입금해 주시면 신청이 완료됩니다.</p>
-                    </div>
-
-                    <!-- 계좌 정보 -->
-                    <div class="bank-info">
-                        <h3>SC제일은행</h3>
-                        <p class="text-lg mb-2">김혜림</p>
-                        <p class="account-number">607-2003-7586</p>
-                        <p class="text-sm mt-4 text-gray-600">
-                            * 입금 확인 후 담당자가 개별 연락드릴 예정입니다<br>
-                            * 문의사항: <span class="font-semibold text-orange-600">010-3118-5870</span>
-                        </p>
-                    </div>
 
                     <!-- 개인정보 처리 동의 -->
                     <div class="form-field">
@@ -475,12 +459,11 @@ ${data.health_info || '특이사항 없음'}
 ▶ 특별 요청사항  
 ${data.special_requests || '요청사항 없음'}
 
-※ 예약금 ₩200,000 입금 확인 후 개별 연락 예정
-※ 계좌: SC제일은행 607-2003-7586 (김혜림)
+※ 신청 접수 완료 후 개별 연락 예정
                 `
             })
             .then(function() {
-                alert('✅ 신청서가 성공적으로 전송되었습니다!\n\n예약금 입금 후 개별 연락드릴 예정입니다.\n\n📞 문의: 010-3118-5870');
+                alert('✅ 신청서가 성공적으로 전송되었습니다!\n\n신청 접수 완료 후 개별 연락드릴 예정입니다.\n\n📞 문의: 010-3118-5870');
                 window.location.href = 'index.html';
             })
             .catch(function(error) {
