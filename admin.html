@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드 | Sally's 긍정심리학 클래스</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .dashboard-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            padding: 20px;
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card.total { background: linear-gradient(135deg, #4f84ff, #3b6dd7); }
+        .stat-card.today { background: linear-gradient(135deg, #52c41a, #389e0d); }
+        .stat-card.pending { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">관리자 대시보드</h2>
+            <div>
+                <button class="btn btn-primary me-2">+ 테스트 데이터 추가</button>
+                <button class="btn btn-warning me-2">전체 삭제</button>
+                <button class="btn btn-danger">로그아웃</button>
+            </div>
+        </div>
+        
+        <!-- 통계 카드들 -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="stat-card total">
+                    <div class="stat-number" id="totalApplicants">0</div>
+                    <div>총 신청자</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card today">
+                    <div class="stat-number" id="todayApplicants">0</div>
+                    <div>오늘 신청</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card pending">
+                    <div class="stat-number" id="pendingApplicants">100</div>
+                    <div>남은 자리</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 참가 신청자 테이블 -->
+        <div class="table-container">
+            <h5 class="mb-4">참가 신청자</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>번호</th>
+                            <th>이름</th>
+                            <th>생년월일</th>
+                            <th>연락처</th>
+                            <th>이메일</th>
+                            <th>신청일시</th>
+                            <th>상태</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicantsTableBody">
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                아직 신청 내역이 없습니다.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 9월 참석이 어려운 분들 (다음 회차 참가 의견 신청) -->
+        <div class="table-container">
+            <h5 class="mb-4">9월 참석이 어려운 분들 (다음 회차 참가 의견 신청)</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>번호</th>
+                            <th>이메일 주소</th>
+                            <th>등록 일시</th>
+                        </tr>
+                    </thead>
+                    <tbody id="waitlistTableBody">
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-4">
+                                아직 이메일 알림 신청이 없습니다.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Firebase 초기화
+        const firebaseConfig = {
+            apiKey: "AIzaSyBKOVEJj-_J5r3RQ2kCaI3gWG5YOGmFyKU",
+            authDomain: "sally-psychology-class.firebaseapp.com",
+            projectId: "sally-psychology-class",
+            storageBucket: "sally-psychology-class.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef123456"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // 신청자 데이터 로드
+        function loadApplicants() {
+            db.collection('applicants')
+              .orderBy('applied_at', 'desc')
+              .onSnapshot((querySnapshot) => {
+                const tbody = document.getElementById('applicantsTableBody');
+                tbody.innerHTML = '';
+                
+                let totalCount = 0;
+                let todayCount = 0;
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                if (querySnapshot.empty) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">아직 신청 내역이 없습니다.</td></tr>';
+                } else {
+                    querySnapshot.forEach((doc, index) => {
+                        const data = doc.data();
+                        const appliedAt = data.applied_at.toDate();
+                        
+                        totalCount++;
+                        if (appliedAt >= today) {
+                            todayCount++;
+                        }
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${data.name}</td>
+                            <td>${data.birth_date}</td>
+                            <td>${data.phone}</td>
+                            <td>${data.email}</td>
+                            <td>${appliedAt.toLocaleDateString('ko-KR')} ${appliedAt.toLocaleTimeString('ko-KR')}</td>
+                            <td><span class="badge bg-success">${data.status}</span></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+                
+                // 통계 업데이트
+                document.getElementById('totalApplicants').textContent = totalCount;
+                document.getElementById('todayApplicants').textContent = todayCount;
+                document.getElementById('pendingApplicants').textContent = Math.max(0, 8 - totalCount);
+            });
+        }
+        
+        // 페이지 로드 시 데이터 로드
+        document.addEventListener('DOMContentLoaded', function() {
+            loadApplicants();
+        });
+    </script>
+</body>
+</html>

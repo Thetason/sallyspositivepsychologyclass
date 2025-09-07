@@ -17,6 +17,10 @@
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    
     <style>
         :root {
             --primary-green: #2a472f;
@@ -381,6 +385,19 @@
     </section>
 
     <script>
+        // Firebase 초기화
+        const firebaseConfig = {
+            apiKey: "AIzaSyBKOVEJj-_J5r3RQ2kCaI3gWG5YOGmFyKU",
+            authDomain: "sally-psychology-class.firebaseapp.com",
+            projectId: "sally-psychology-class",
+            storageBucket: "sally-psychology-class.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef123456"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
         // EmailJS 초기화
         (function(){
             emailjs.init('vTXO9oQpgZrlZUwyh'); // 메인 페이지와 동일한 Public Key 사용
@@ -405,6 +422,28 @@
             if (data.birth_year && data.birth_month && data.birth_day) {
                 data.birth_date = `${data.birth_year}년 ${data.birth_month}월 ${data.birth_day}일`;
             }
+            
+            // Firestore에 신청자 데이터 저장
+            const applicantData = {
+                name: data.name,
+                birth_date: data.birth_date,
+                phone: data.phone,
+                email: data.email,
+                motivation: data.motivation || '미작성',
+                health_info: data.health_info || '특이사항 없음',
+                special_requests: data.special_requests || '요청사항 없음',
+                applied_at: new Date(),
+                status: '접수완료'
+            };
+            
+            // Firestore에 저장
+            db.collection('applicants').add(applicantData)
+            .then((docRef) => {
+                console.log('Firestore에 데이터 저장 완료:', docRef.id);
+            })
+            .catch((error) => {
+                console.error('Firestore 저장 오류:', error);
+            });
             
             // EmailJS로 이메일 전송
             emailjs.send('service_abc123', 'template_v766kpj', {
